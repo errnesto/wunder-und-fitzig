@@ -1,0 +1,19 @@
+{
+  "name": "wunder & fitzig",
+  "description": "the wunder & fitzig web page",
+  "version": "0.1.0",
+  "author": {
+    "name": "Manuel Reich",
+    "url": "manuel@wunderundfitzig.de"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-stylus": "0.0.12",
+    "gulp-connect": "~0.3.0",
+    "stylus": "*",
+    "nib": "*"
+  },
+  "dependencies": {
+    "gulp-plumber": "~0.5.6"
+  }
+}
