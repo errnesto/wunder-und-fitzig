@@ -1,38 +1,9 @@
 <!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-    <title>wunder &amp; fitzig | Werbeagentur Berlin</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
+@@include('src/html/templates/header.html', {"title": "wunder &amp; fitzig | Werbeagentur Berlin"})
 
 <body>
-	<header class="blackHeader" ng-controller="HeaderController">
-	<nav class="topNavigation">
-		<ul>
-			<li class=" menu-item">
-				<a href="creatives.html">
-					<img class="menu-img" src="assets/img/creatives.svg" alt="creatives">
-				</a>
-			</li>
-			<li class="active menu-item">
-				<a href="/">
-					<img class="menu-logo" src="assets/img/logo.svg" alt="wunder &amp; fitzig">
-				</a>
-			</li>
-			
-			<li class=" menu-item">
-				<a href="stories.html">
-					<img class="menu-img" src="assets/img/stories.svg" alt="stories">
-				</a>
-			</li>
-		</ul>
-	</nav>
-</header>
+	@@include('src/html/templates/navi.html', {"creatives": "", "news": "active", "stories": ""})
 
 	<div class="content">
 		<section class="inner-content">

@@ -1,0 +1,344 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+[hidden] {
+  display: none;
+}
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif;
+}
+a:hover,
+a:active {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+blockquote {
+  margin: 1em 40px;
+}
+dfn {
+  font-style: italic;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 1em;
+}
+q {
+  quotes: none;
+}
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+small {
+  font-size: 75%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 40px;
+}
+dd {
+  margin: 0 0 0 40px;
+}
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none;
+}
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 0;
+}
+form {
+  margin: 0;
+}
+fieldset {
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0;
+  *margin-left: -7px;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button,
+input {
+  line-height: normal;
+  *overflow: visible;
+}
+table button,
+table input {
+  *overflow: auto;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+@font-face {
+  font-family: 'Colaborate';
+  font-weight: 600;
+  font-style: normal;
+  src: url("../fonts/ColabMed-webfont.eot");
+  src: url("../fonts/ColabMed-webfont.eot?#iefix") format('embedded-opentype'), url("../fonts/ColabMed-webfont.woff") format('woff'), url("../fonts/ColabMed-webfont.ttf") format('truetype'), url("../fonts/ColabMed-webfont.svg#colaborate-mediumregular") format('svg');
+}
+@font-face {
+  font-family: 'Colaborate';
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/ColabLig-webfont.eot");
+  src: url("../fonts/ColabLig-webfont.eot?#iefix") format('embedded-opentype'), url("../fonts/ColabLig-webfont.woff") format('woff'), url("../fonts/ColabLig-webfont.ttf") format('truetype'), url("../fonts/ColabLig-webfont.svg#colaboratelightregular") format('svg');
+}
+@font-face {
+  font-family: 'Colaborate';
+  src: url("../fonts/ColabThi-webfont.eot");
+  src: url("../fonts/ColabThi-webfont.eot?#iefix") format('embedded-opentype'), url("../fonts/ColabThi-webfont.woff") format('woff'), url("../fonts/ColabThi-webfont.ttf") format('truetype'), url("../fonts/ColabThi-webfont.svg#colaborate-thinregular") format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+body {
+  color: #111;
+  font-size: 20px;
+  background: url("../img/bg.jpg");
+  font-family: 'Colaborate', sans-serif;
+}
+h1,
+h2,
+h3,
+h5,
+h6 {
+  font-weight: 300;
+}
+a {
+  color: #666;
+  text-decoration: none;
+}
+a:hover {
+  border-bottom: 1px solid #666;
+}
+.content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding-top: 68px;
+}
+.content .inner-content {
+  margin: 0 auto;
+  width: 960px;
+  padding: 0 40px;
+}
+.blackHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  height: 68px;
+  width: 100%;
+  z-index: 200;
+}
+.topNavigation {
+  width: 660px;
+  margin: 13px auto 0;
+}
+.topNavigation ul {
+  margin: 0;
+  padding: 0;
+}
+.topNavigation .menu-item {
+  list-style: none;
+  float: left;
+  width: 33%;
+  height: 68px;
+  text-align: center;
+}
+.topNavigation .menu-item a {
+  display: block;
+  color: #fff;
+  height: 55px;
+}
+.topNavigation .menu-item a:hover {
+  border: 0;
+}
+.topNavigation .menu-item .menu-img {
+  vertical-align: bottom;
+}
+.topNavigation .menu-item .menu-logo {
+  margin-left: -14px;
+}
+.topNavigation .menu-item.active {
+  background-image: url("../img/currentNav.svg");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  -webkit-background-size: 24px 16px;
+  -moz-background-size: 24px 16px;
+  background-size: 24px 16px;
+}
+.neugierig {
+  text-align: center;
+  font-size: 4.5em;
+  font-weight: 300;
+  margin-top: 70px;
+}
+.neugierig strong {
+  font-weight: normal;
+  font-weight: 600;
+}
+.contact {
+  width: 100%;
+  height: 2.5em;
+  margin: 30px;
+  auto: 60px;
+  padding: 20px 0;
+  border-top: 1px dotted;
+}
+.contact div {
+  margin: 0 auto;
+  width: 36em;
+}
+.contact div p {
+  float: left;
+  width: 12em;
+  margin: 0 auto;
+  vertical-align: top;
+}
+#news-feed {
+  min-height: 500px;
+}
+#news-feed .fb-post a:hover {
+  border-bottom: 0;
+}
+#news-feed .fb-date {
+  font-size: 1.2em;
+  font-weight: 300;
+  margin: 60px 0 10px;
+}
+#news-feed .photo .fb-picture {
+  width: 880px;
+  height: auto;
+}
+#news-feed .fb-message {
+  margin-top: 5px;
+}
+.more-news-link {
+  border-top: 1px dotted;
+  padding-top: 20px;
+  margin-top: 80px;
+}
+.impressum {
+  background-color: #eee;
+  background-color: rgba(0,0,0,0.02);
+  position: absolute;
+  left: 0;
+  margin-top: 50px;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 0.7em;
+  color: #777;
+  text-align: center;
+}

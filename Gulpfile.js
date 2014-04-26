@@ -2,11 +2,12 @@
 var gulp    = require('gulp'),
     connect = require('gulp-connect'),
     stylus  = require('gulp-stylus'),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    fileinclude = require('gulp-file-include');
 
 var paths = {
     styles: 'src/stylus/**/*',
-    html:   '*.html'
+    html:   'src/html/**/*.html'
 };
 
 // Connect task
@@ -14,12 +15,14 @@ gulp.task('connect', connect.server({
     root: __dirname + '/',
     port: 5000,
     livereload: true,
-    open: true
+    open: false
 }));
 
 // HTML task
 gulp.task('html', function () {
-    gulp.src('*.html')
+    gulp.src('./src/html/*.html')
+        .pipe(fileinclude())
+        .pipe(gulp.dest('./'))
         .pipe(connect.reload());
 });
 
