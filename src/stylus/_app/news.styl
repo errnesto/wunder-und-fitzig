@@ -10,10 +10,8 @@
 	}
 }
 .contact
-	width: 100%
 	height: 2.5em 
-	margin: 30px 
-	auto 60px
+	margin: 30px auto 60px
 	padding: 20px 0
 	border-top: 1px dotted
 	div
@@ -24,10 +22,13 @@
 			width: 12em; margin: 0 auto
 			vertical-align: top
 
-#news-feed
+.news-feed
+	width: inner-width
+	margin: 0 auto
 	min-height: 500px
 	.fb-post
 		a
+			display: block
 			&:hover
 				border-bottom: 0
 
@@ -40,9 +41,13 @@
 		.fb-picture
 			width: inner-width
 			height: auto
+	.link
+		a
+			background-color: transparent-grey
+			font-size: 0
 
 	.fb-message
-		margin-top: 5px
+		margin-top: 10px
 
 .more-news-link
 	border-top: 1px dotted
@@ -51,7 +56,7 @@
 
 .impressum
 	background-color: #eee
-	background-color: rgba(0, 0, 0, 0.02)
+	background-color: transparent-grey
 	position: absolute
 	left: 0
 	margin-top: 50px

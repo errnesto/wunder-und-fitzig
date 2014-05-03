@@ -3,11 +3,14 @@ var gulp    = require('gulp'),
     connect = require('gulp-connect'),
     stylus  = require('gulp-stylus'),
     plumber = require('gulp-plumber'),
-    fileinclude = require('gulp-file-include');
+    include = require('gulp-include'),
+    fileinclude = require('gulp-file-include'),
+    react = require('gulp-react');
 
 var paths = {
     styles: 'src/stylus/**/*',
-    html:   'src/html/**/*.html'
+    html:   'src/html/**/*.html',
+    react:  'src/react/**/*.jsx'
 };
 
 // Connect task
@@ -15,7 +18,7 @@ gulp.task('connect', connect.server({
     root: __dirname + '/',
     port: 5000,
     livereload: true,
-    open: false
+    open: {browser: 'Google Chrome Canary'}
 }));
 
 // HTML task
@@ -26,13 +29,22 @@ gulp.task('html', function () {
         .pipe(connect.reload());
 });
 
+// React task
+gulp.task('react', function () {
+    gulp.src('./src/react/main.jsx')
+        .pipe(include())
+        .pipe(react())
+        .pipe(gulp.dest('./assets/js'))
+        .pipe(connect.reload());
+});
+
 // Stylus task
 gulp.task('stylus', function () {
     gulp.src('./src/stylus/*.styl')
         .pipe(plumber())
         .pipe(stylus({
             use: ['nib'], 
-            //set: ['compress']
+            // set: ['compress']
         }))
         .pipe(gulp.dest('./assets/css'))
         .pipe(connect.reload());
@@ -42,7 +54,8 @@ gulp.task('stylus', function () {
 gulp.task('watch', function () {
     gulp.watch(paths.styles, ['stylus']);
     gulp.watch(paths.html, ['html']);
+    gulp.watch(paths.react, ['react']);
 });
 
 // Set 'gulp server' for development
-gulp.task('server', ['connect', 'stylus', 'watch']);
+gulp.task('default', ['connect', 'stylus', 'react', 'html', 'watch']);

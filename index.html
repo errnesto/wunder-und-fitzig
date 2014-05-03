@@ -8,25 +8,29 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <script src="/bower_components/react/react.js"></script>
+    <script src="/bower_components/superagent/superagent.js"></script>
+    <script src="/assets/js/main.js"></script>
 </head>
 
 <body>
-	<header class="blackHeader" ng-controller="HeaderController">
+	<header class="blackHeader">
 	<nav class="topNavigation">
 		<ul>
 			<li class=" menu-item">
-				<a href="creatives.html">
+				<a href="creatives">
 					<img class="menu-img" src="assets/img/creatives.svg" alt="creatives">
 				</a>
 			</li>
 			<li class="active menu-item">
-				<a href="/">
+				<a href="./">
 					<img class="menu-logo" src="assets/img/logo.svg" alt="wunder &amp; fitzig">
 				</a>
 			</li>
 			
 			<li class=" menu-item">
-				<a href="stories.html">
+				<a href="stories">
 					<img class="menu-img" src="assets/img/stories.svg" alt="stories">
 				</a>
 			</li>
@@ -36,7 +40,7 @@
 
 	<div class="content">
 		<section class="inner-content">
-			<h1 class="neugierig">neu<strong>gierig</strong></h1>
+			<h1 class="neugierig">neu<strong>gierig</strong>?</h1>
 			<div class="contact">
 				<div>
 					<p>wunder & fitzig<br>
@@ -49,16 +53,12 @@
 					<a class="email" href="mailto:info@wunderundfitzig.de">info@wunderundfitzig.de </a></p>
 				</div>
 			</div>
-			<div class="news">
-				<h2 class="pulse">News</h2>
-				<div id="news-feed" >
-					
-				</div>
-				<p class="more-news-link">
-					ältere News sind für alle Ewigkeit auf <a href="http://www.facebook.com/wunderundfitzig" target="_blank">facebook</a> zu finden
-				</p>
-				<div class="impressum"><p>wunder & fitzig GBR - 2014</p></div>
+			<div id="news-frame" class="news-feed">
 			</div>
+			<p class="more-news-link">
+				ältere News sind für alle Ewigkeit auf <a href="http://www.facebook.com/wunderundfitzig" target="_blank">facebook</a> zu finden
+			</p>
+			<div class="impressum"><p>wunder & fitzig GBR - 2014</p></div>
 		</section>
 	</div>
 </body>
