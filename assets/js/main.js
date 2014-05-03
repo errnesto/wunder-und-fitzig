@@ -4,6 +4,11 @@
 	var request = window.superagent;
 
 var NewsPost = React.createClass({displayName: 'NewsPost',
+	getInitialState: function() {
+		return {
+			picture: this.props.picture,
+		};
+	},
 	//format facebook date String to a nice german date
 	formatDate: function (createdTime) {
 		var date = new Date(createdTime),
@@ -23,13 +28,32 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 			return str.replace(/(\r\n)|(\n\r)|\r|\n/g,"<br>");
 		}
 	},
+	componentWillMount: function (argument) {
+		//replace low res images with large ones
+		if (this.props.type == 'photo') {
+			//get photos from facebook by object id
+			request
+				.get('https://graph.facebook.com/' + this.props.key)
+				.query({ 
+					fields: 'images', 
+					access_token: this.props.accessToken, 
+				})
+				.end(function(res){
+					this.setState({
+						//images[0] should be the largest
+						picture: res.body.images[0].source
+					});
+				}.bind(this));
+		}
+	},
 	render: function() {
+		console.log('render');
 		return (
 			React.DOM.div( {className:'fb-post ' + this.props.type}, 
 				/*first element does not show the date*/
 				 this.props.isFirst ? '' : React.DOM.p( {className:"fb-date"}, this.formatDate(this.props.createdTime)),
 				React.DOM.a( {href:this.props.link, target:"_blank", className:"fb-link"}, 
-					React.DOM.img( {className:"fb-picture", src:this.props.picture} )
+					React.DOM.img( {className:"fb-picture", src:this.state.picture} )
 				),
 				React.DOM.p( {className:"fb-message", dangerouslySetInnerHTML:{__html: this.formatAsHtml(this.props.message)}})
 			)
@@ -58,36 +82,15 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 					posts: res.body.data,
 					loadingState: res.status
 				});
-				
-				this.loadHighresImgs();
-
 			}.bind(this));
-	},
-	//replace low res images with large ones
-	loadHighresImgs: function () {
-		this.state.posts.forEach(function (post) {
-			if (post.type == 'photo') {
-				//get photos from facebook by object id
-				request
-					.get('https://graph.facebook.com/' + post.object_id)
-					.query({ 
-						fields: 'images', 
-						access_token: this.props.accessToken, 
-					})
-					.end(function(res){
-						//first picture should be the largest
-						post.picture = res.body.images[0].source;
-						this.forceUpdate(); //!need to force update because we changed state directly
-					}.bind(this));
-			}
-		},this);
 	},
 	render: function() {
 		var NewsPosts = this.state.posts.map(function (post,index) {
 			if (post.type == 'photo' || post.type == 'link') {
 				return (
 					NewsPost( 
-					{isFirst:index === 0,
+					{key:post.object_id,
+					isFirst:index === 0,
 					createdTime:post.created_time, 
 					link:post.link, 
 					type:post.type,

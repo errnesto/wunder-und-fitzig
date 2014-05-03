@@ -1,4 +1,9 @@
 var NewsPost = React.createClass({
+	getInitialState: function() {
+		return {
+			picture: this.props.picture,
+		};
+	},
 	//format facebook date String to a nice german date
 	formatDate: function (createdTime) {
 		var date = new Date(createdTime),
@@ -18,13 +23,32 @@ var NewsPost = React.createClass({
 			return str.replace(/(\r\n)|(\n\r)|\r|\n/g,"<br>");
 		}
 	},
+	componentWillMount: function (argument) {
+		//replace low res images with large ones
+		if (this.props.type == 'photo') {
+			//get photos from facebook by object id
+			request
+				.get('https://graph.facebook.com/' + this.props.key)
+				.query({ 
+					fields: 'images', 
+					access_token: this.props.accessToken, 
+				})
+				.end(function(res){
+					this.setState({
+						//images[0] should be the largest
+						picture: res.body.images[0].source
+					});
+				}.bind(this));
+		}
+	},
 	render: function() {
+		console.log('render');
 		return (
 			<div className={'fb-post ' + this.props.type}>
 				{/*first element does not show the date*/}
 				{ this.props.isFirst ? '' : <p className="fb-date">{this.formatDate(this.props.createdTime)}</p>}
 				<a href={this.props.link} target="_blank" className="fb-link">
-					<img className="fb-picture" src={this.props.picture} />
+					<img className="fb-picture" src={this.state.picture} />
 				</a>
 				<p className="fb-message" dangerouslySetInnerHTML={{__html: this.formatAsHtml(this.props.message)}}></p>
 			</div>
@@ -53,35 +77,14 @@ var NewsFeed = React.createClass({
 					posts: res.body.data,
 					loadingState: res.status
 				});
-				
-				this.loadHighresImgs();
-
 			}.bind(this));
-	},
-	//replace low res images with large ones
-	loadHighresImgs: function () {
-		this.state.posts.forEach(function (post) {
-			if (post.type == 'photo') {
-				//get photos from facebook by object id
-				request
-					.get('https://graph.facebook.com/' + post.object_id)
-					.query({ 
-						fields: 'images', 
-						access_token: this.props.accessToken, 
-					})
-					.end(function(res){
-						//first picture should be the largest
-						post.picture = res.body.images[0].source;
-						this.forceUpdate(); //!need to force update because we changed state directly
-					}.bind(this));
-			}
-		},this);
 	},
 	render: function() {
 		var NewsPosts = this.state.posts.map(function (post,index) {
 			if (post.type == 'photo' || post.type == 'link') {
 				return (
 					<NewsPost 
+					key={post.object_id}
 					isFirst={index === 0}
 					createdTime={post.created_time} 
 					link={post.link} 
