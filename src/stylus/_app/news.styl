@@ -1,32 +1,56 @@
 //start page
-.neugierig {
+.neugierig
 	text-align center
 	font-size 4.5em
 	font-weight 300
 	margin-top 70px
-	strong{
+	strong
 		font-weight normal
 		font-weight 600
-	}
-}
+	@media mobile
+		margin-top 30px
+
 .contact
 	height 2.5em 
 	margin 30px auto 60px
 	padding 20px 0
 	border-top 1px dotted
-	div
+	@media mobile
+		padding-top 7px
+		margin-bottom 25px
+	.wrapper
 		margin 0 auto
-		width 36em
+		width 30em
+		max-width 100%
 		p
 			float left
-			width 12em; margin 0 auto
+			width 10em
+			margin 0 auto
 			vertical-align top
+			@media small-mobile
+				width auto
+				margin-right 15px
+				&:last-child
+					margin-right 0
 
 .news-feed
-	width inner-width
+	width 100%
+	max-width inner-width
 	margin 0 auto
-	min-height 500px
+	min-height 800px
+	.loading
+		display inline-block
+		margin-top 0
+		animate(pulse 1s infinite)
+	.load-200
+		transition 10s
+
+	//the post
 	.fb-post
+		margin-bottom 60px
+		animate(fadeIn 3s)
+		@media mobile
+			margin-bottom 20px
 		a
 			display block
 			&:hover
@@ -35,24 +59,31 @@
 	.fb-date
 		font-size 1.2em
 		font-weight 300
-		margin 60px 0 10px
+		margin 0 0 10px
 
 	.photo
 		.fb-picture
-			width inner-width
+			width 100%
+			max-width inner-width
 			height auto
 	.link
 		a
 			background-color transparent-grey
 			font-size 0
+			line-height 0
 
 	.fb-message
 		margin-top 10px
+		@media mobile
+			margin-top 3px
 
 .more-news-link
 	border-top 1px dotted
 	padding-top 20px
 	margin-top 80px
+	@media mobile
+		margin-top 30px
+		padding-top 10px
 
 .impressum
 	background-color #eee
@@ -65,3 +96,5 @@
 	font-size 0.7em
 	color #777
 	text-align center
+	@media mobile
+		margin-top 0

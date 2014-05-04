@@ -1,13 +1,15 @@
 *
 	box-sizing border-box
-	
+
 body
 	color wuf-black
-	font-size 19px;
+	font-size 19px
 	background url(../img/bg.jpg)
 	font-family 'Colaborate', sans-serif
 	font-weight 300
 	line-height 1.3em
+	@media mobile
+		font-size 12px
 
 h1,
 h2,
@@ -28,9 +30,11 @@ a:hover
 .content
 	width 100%; 
 	height 100%; 
-	position relative;
+	position absolute;
 	padding-top header-height;
 	.inner-content
 		margin 0 auto;
-		width page-width;
+		max-width page-width;
 		padding 0 40px;
+		@media mobile
+			padding 0 10px 

@@ -6,13 +6,14 @@ var NewsPost = React.createClass({
 	},
 	//format facebook date String to a nice german date
 	formatDate: function (createdTime) {
-		var date = new Date(createdTime),
-			day = date.getDate(),
-			month = date.getMonth(),
-			year = date.getFullYear(),
+		var date = createdTime.split('T');
+			date = date = date[0].split('-');
+
+		var day = date[2],
+			month = date[1] - 1,
+			year = date[0],
 
 			months = [ "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-			if(day < 10){ day = '0'+day;}
 
 		return day+'. '+months[month]+' '+year;
 	},
@@ -42,7 +43,6 @@ var NewsPost = React.createClass({
 		}
 	},
 	render: function() {
-		console.log('render');
 		return (
 			<div className={'fb-post ' + this.props.type}>
 				{/*first element does not show the date*/}
@@ -75,7 +75,7 @@ var NewsFeed = React.createClass({
 			.end(function(res){
 				this.setState({
 					posts: res.body.data,
-					loadingState: res.status
+					loadingState: 'load-'+res.status
 				});
 			}.bind(this));
 	},

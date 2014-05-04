@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 (function () {
+	"use-strict";
 	var request = window.superagent;
 
 var NewsPost = React.createClass({displayName: 'NewsPost',
@@ -11,13 +12,14 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 	},
 	//format facebook date String to a nice german date
 	formatDate: function (createdTime) {
-		var date = new Date(createdTime),
-			day = date.getDate(),
-			month = date.getMonth(),
-			year = date.getFullYear(),
+		var date = createdTime.split('T');
+			date = date = date[0].split('-');
+
+		var day = date[2],
+			month = date[1] - 1,
+			year = date[0],
 
 			months = [ "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-			if(day < 10){ day = '0'+day;}
 
 		return day+'. '+months[month]+' '+year;
 	},
@@ -47,7 +49,6 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 		}
 	},
 	render: function() {
-		console.log('render');
 		return (
 			React.DOM.div( {className:'fb-post ' + this.props.type}, 
 				/*first element does not show the date*/
@@ -80,7 +81,7 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 			.end(function(res){
 				this.setState({
 					posts: res.body.data,
-					loadingState: res.status
+					loadingState: 'load-'+res.status
 				});
 			}.bind(this));
 	},
@@ -108,10 +109,74 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 	}
 });
 
+var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
+	getInitialState: function() {
+		return {
+			stories: [],
+		};
+	},
+	componentDidMount: function() {
+		//get news feed from facebook
+		request
+			.get(this.props.url)
+
+			.end(function(res){
+				this.setState({
+					stories: res.body,
+				});
+			}.bind(this));
+	},
+	render: function() {
+		var Stories = this.state.stories.map(function (storie, index) {
+			return Storie( 
+				{coverBackground:storie.cover_background, 
+				coverImage:storie.cover, 
+				coverText:storie.cover_text, 
+				items:storie.stories}, 
+					storie.customer
+				);
+		});
+		return (
+			React.DOM.section( {className:"stories-container"}, 
+				Stories
+			)
+		);
+	}
+});
+
+var Storie = React.createClass({displayName: 'Storie',
+	render: function() {
+		var StorieItems = this.props.items.map(function (item) {
+			return (
+					React.DOM.div( {className:"storie-item", style:{'background-image': item.image}}, 
+						React.DOM.p( {className:"storie-text"}, 
+							item.text
+						)
+					)
+				);
+		});
+		return (
+			React.DOM.div( {className:"storie"} , 
+				React.DOM.h2( {className:"storie-title"}, 
+					this.props.children
+				),
+				React.DOM.div( {className:"storie-items-wrapper"}, 
+					React.DOM.div( {className:"cover storie-item", style:{'background': this.props.coverBackground}}, 
+						React.DOM.img( {src:this.props.coverImage} )
+					),
+					StorieItems
+				)
+				
+			)
+		);
+	}
+});
+
 
 	//add react components to DOM
 	window.onload = function () {
 		var newsFeedFrame = document.getElementById('news-frame');
+		var storiesFrame = document.getElementById('stories-frame');
 		if ( newsFeedFrame ) {
 			React.renderComponent(NewsFeed( 
 				{url:"https://graph.facebook.com/wunderundfitzig/feed", 
@@ -119,6 +184,12 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 				accessToken:"1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE", 
 				limit:"10"} ), 
 			newsFeedFrame);
+		}
+		if ( storiesFrame ) {
+			React.renderComponent(StoriesContainer( 
+				{url:"./stories.json", 
+				limit:"10"} ), 
+			storiesFrame);
 		}
 	};
 })();

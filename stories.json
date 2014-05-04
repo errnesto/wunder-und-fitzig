@@ -1,0 +1,36 @@
+[
+	{
+		"customer": "Sebastian Schmidt",
+		"cover": "Logo_Sebastian_Schmidt.svg",
+		"cover_background": "red",
+		"cover_text": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln.",
+		"stories": [
+			{
+				"image": "Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			},
+			{
+				"image": "Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			}
+		]
+
+	},
+	{
+		"customer": "Sebastian Schmidt2",
+		"cover": "Logo_Sebastian_Schmidt.svg",
+		"cover_background": "green",
+		"cover_text": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln.",
+		"stories": [
+			{
+				"image": "Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			},
+			{
+				"image": "Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			}
+		]
+
+	}
+]
