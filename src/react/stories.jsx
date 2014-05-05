@@ -40,9 +40,6 @@ var StoriesContainer = React.createClass({
 		var Stories = this.state.stories.map(function (storie, i) {
 			return (
 				<Storie 
-				coverBackground={storie.cover_background} 
-				coverImage={storie.cover} 
-				coverText={storie.cover_text} 
 				items={storie.items}
 				currentItem={this.state.currentItems[i] || 0}
 				slide={this.slide}>
@@ -60,50 +57,48 @@ var StoriesContainer = React.createClass({
 
 var Storie = React.createClass({
 	render: function() {
-		var prevNum = this.props.currentItem -1,
-			activeNum = this.props.currentItem,
-			nextNum = this.props.currentItem +1,
-			next = 'next';
+		var StorieItems = [];
+		var positions = ['prev','active','next'];
 
-		if (prevNum < 0) prevNum = this.props.items.length -1;
-		if (nextNum > this.props.items.length -1) {
-			nextNum = 0;
-			next = 'wraparound';
+		//create 3 StorieItems so we alwas have a current a previos and a next one
+		for (var i = -1; i <= 1; i++) {
+			var itemNum = this.props.currentItem + i,
+				pos = positions[i+1]; //we count from -1 array starts at 0
+
+			//hande boundarys
+			if (itemNum < 0) itemNum = this.props.items.length -1;
+			if (itemNum > this.props.items.length -1) {
+				itemNum = 0;
+				pos = 'wraparound';
+			}
+
+			var item = this.props.items[itemNum];
+
+			StorieItems.push(
+				<StorieItem 
+					key={'item-'+itemNum} 
+					pos={pos} 
+					isCover={item.is_cover} 
+					background={item.background} 
+					cover={item.cover}/>
+			);
 		}
 
-		var prevItem = this.props.items[prevNum],
-			activeItem = this.props.items[activeNum],
-			nextItem = this.props.items[nextNum];
+		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 		return (
 			<div className="storie" >
-				<StorieItem 
-					key={'item-'+prevNum} 
-					pos="prev" 
-					isCover={prevItem.is_cover} 
-					image={prevItem.image} 
-					text={prevItem.text} 
-					background={prevItem.background}/>
-				<StorieItem 
-					key={'item-'+activeNum} 
-					pos="active" 
-					isCover={activeItem.is_cover} 
-					image={activeItem.image} 
-					text={activeItem.text} 
-					background={activeItem.background}/>
-				<StorieItem 
-					key={'item-'+nextNum} 
-					pos={next} 
-					isCover={nextItem.is_cover} 
-					image={nextItem.image} 
-					text={nextItem.text} 
-					background={nextItem.background}/>
-					
-				<h2 className="storie-title">
-					{this.props.children} {this.props.currentItem}
-				</h2>
-				<a className="prev arrow" onClick={this.props.slide}>prev</a>
-				<a className="next arrow" onClick={this.props.slide}>next</a>
+				{StorieItems}
+				<div className="inner-storie">
+					<h2 className="storie-title">{this.props.children}</h2>
+					<ReactCSSTransitionGroup transitionName="flip">
+						<div className="storie-text-wrapper" key={'text'+this.props.currentItem} >
+							<p className="storie-text" dangerouslySetInnerHTML={{__html: this.props.items[this.props.currentItem].text}} />
+						</div>
+					</ReactCSSTransitionGroup>
+					<a className="prev arrow" onClick={this.props.slide}>prev</a>
+					<a className="next arrow" onClick={this.props.slide}>next</a>
+				</div>
 			</div>
 		);
 	}
@@ -111,34 +106,15 @@ var Storie = React.createClass({
 
 var StorieItem = React.createClass({
 	render: function() {
-		if (this.props.isCover){
-			return this.transferPropsTo(<StorieCover></StorieCover>);
-		} else {
-			return this.transferPropsTo(<StoriePage></StoriePage>);
+		var style = {'background-image': 'url(assets/img/stories/'+this.props.background+')'}, 
+			CoverImg;
+		if (this.props.isCover) {
+			style = {'background': this.props.background};
+			CoverImg = <img className="cover-image" src={'assets/img/stories/'+this.props.cover} />;
 		}
-	}
-});
-
-var StorieCover = React.createClass({
-	render: function() {
 		return (
-			<div className={'cover storie-item ' + this.props.pos} style={{'background': this.props.background}}>
-				<img src={this.props.image} />
-				<p className="storie-text">
-					{this.props.text}
-				</p>
-			</div>
-		);
-	}
-});
-
-var StoriePage = React.createClass({
-	render: function() {
-		return (
-			<div className={'storie-item ' + this.props.pos} style={{'background-image': this.props.image}}>
-				<p className="storie-text">
-					{this.props.text}
-				</p>
+			<div className={'cover storie-item ' + this.props.pos} style={style}>
+				{CoverImg}
 			</div>
 		);
 	}

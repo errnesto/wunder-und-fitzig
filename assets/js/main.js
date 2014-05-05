@@ -4,6 +4,53 @@
 	"use-strict";
 	var request = window.superagent;
 
+var NewsFeed = React.createClass({displayName: 'NewsFeed',
+	getInitialState: function() {
+		return {
+			posts: [],
+			loadingState: 'loading'
+		};
+	},
+	componentDidMount: function() {
+		//get news feed from facebook
+		request
+			.get(this.props.url)
+			.query({ 
+				fields: this.props.fields, 
+				access_token: this.props.accessToken, 
+				limit: this.props.limit 
+			})
+			.end(function(res){
+				this.setState({
+					posts: res.body.data,
+					loadingState: 'load-'+res.status
+				});
+			}.bind(this));
+	},
+	render: function() {
+		var NewsPosts = this.state.posts.map(function (post,index) {
+			if (post.type == 'photo' || post.type == 'link') {
+				return (
+					NewsPost( 
+					{key:post.object_id,
+					isFirst:index === 0,
+					createdTime:post.created_time, 
+					link:post.link, 
+					type:post.type,
+					picture:post.picture, 
+					message:post.message} )
+				);
+			}
+		});
+		return (
+			React.DOM.span(null, 
+				React.DOM.h2( {className:this.state.loadingState}, "News"),
+				NewsPosts
+			)
+		);
+	}
+});
+
 var NewsPost = React.createClass({displayName: 'NewsPost',
 	getInitialState: function() {
 		return {
@@ -62,53 +109,6 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 	}
 });
 
-var NewsFeed = React.createClass({displayName: 'NewsFeed',
-	getInitialState: function() {
-		return {
-			posts: [],
-			loadingState: 'loading'
-		};
-	},
-	componentDidMount: function() {
-		//get news feed from facebook
-		request
-			.get(this.props.url)
-			.query({ 
-				fields: this.props.fields, 
-				access_token: this.props.accessToken, 
-				limit: this.props.limit 
-			})
-			.end(function(res){
-				this.setState({
-					posts: res.body.data,
-					loadingState: 'load-'+res.status
-				});
-			}.bind(this));
-	},
-	render: function() {
-		var NewsPosts = this.state.posts.map(function (post,index) {
-			if (post.type == 'photo' || post.type == 'link') {
-				return (
-					NewsPost( 
-					{key:post.object_id,
-					isFirst:index === 0,
-					createdTime:post.created_time, 
-					link:post.link, 
-					type:post.type,
-					picture:post.picture, 
-					message:post.message} )
-				);
-			}
-		});
-		return (
-			React.DOM.span(null, 
-				React.DOM.h2( {className:this.state.loadingState}, "News"),
-				NewsPosts
-			)
-		);
-	}
-});
-
 var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 	getInitialState: function() {
 		return {
@@ -151,10 +151,7 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 		var Stories = this.state.stories.map(function (storie, i) {
 			return (
 				Storie( 
-				{coverBackground:storie.cover_background, 
-				coverImage:storie.cover, 
-				coverText:storie.cover_text, 
-				items:storie.items,
+				{items:storie.items,
 				currentItem:this.state.currentItems[i] || 0,
 				slide:this.slide}, 
 					storie.customer
@@ -171,50 +168,48 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 
 var Storie = React.createClass({displayName: 'Storie',
 	render: function() {
-		var prevNum = this.props.currentItem -1,
-			activeNum = this.props.currentItem,
-			nextNum = this.props.currentItem +1,
-			next = 'next';
+		var StorieItems = [];
+		var positions = ['prev','active','next'];
 
-		if (prevNum < 0) prevNum = this.props.items.length -1;
-		if (nextNum > this.props.items.length -1) {
-			nextNum = 0;
-			next = 'wraparound';
+		//create 3 StorieItems so we alwas have a current a previos and a next one
+		for (var i = -1; i <= 1; i++) {
+			var itemNum = this.props.currentItem + i,
+				pos = positions[i+1]; //we count from -1 array starts at 0
+
+			//hande boundarys
+			if (itemNum < 0) itemNum = this.props.items.length -1;
+			if (itemNum > this.props.items.length -1) {
+				itemNum = 0;
+				pos = 'wraparound';
+			}
+
+			var item = this.props.items[itemNum];
+
+			StorieItems.push(
+				StorieItem( 
+					{key:'item-'+itemNum, 
+					pos:pos, 
+					isCover:item.is_cover, 
+					background:item.background, 
+					cover:item.cover})
+			);
 		}
 
-		var prevItem = this.props.items[prevNum],
-			activeItem = this.props.items[activeNum],
-			nextItem = this.props.items[nextNum];
+		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 		return (
 			React.DOM.div( {className:"storie"} , 
-				StorieItem( 
-					{key:'item-'+prevNum, 
-					pos:"prev", 
-					isCover:prevItem.is_cover, 
-					image:prevItem.image, 
-					text:prevItem.text, 
-					background:prevItem.background}),
-				StorieItem( 
-					{key:'item-'+activeNum, 
-					pos:"active", 
-					isCover:activeItem.is_cover, 
-					image:activeItem.image, 
-					text:activeItem.text, 
-					background:activeItem.background}),
-				StorieItem( 
-					{key:'item-'+nextNum, 
-					pos:next, 
-					isCover:nextItem.is_cover, 
-					image:nextItem.image, 
-					text:nextItem.text, 
-					background:nextItem.background}),
-					
-				React.DOM.h2( {className:"storie-title"}, 
-					this.props.children, " ", this.props.currentItem
-				),
-				React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
-				React.DOM.a( {className:"next arrow", onClick:this.props.slide}, "next")
+				StorieItems,
+				React.DOM.div( {className:"inner-storie"}, 
+					React.DOM.h2( {className:"storie-title"}, this.props.children),
+					ReactCSSTransitionGroup( {transitionName:"flip"}, 
+						React.DOM.div( {className:"storie-text-wrapper", key:'text'+this.props.currentItem} , 
+							React.DOM.p( {className:"storie-text", dangerouslySetInnerHTML:{__html: this.props.items[this.props.currentItem].text}} )
+						)
+					),
+					React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
+					React.DOM.a( {className:"next arrow", onClick:this.props.slide}, "next")
+				)
 			)
 		);
 	}
@@ -222,38 +217,20 @@ var Storie = React.createClass({displayName: 'Storie',
 
 var StorieItem = React.createClass({displayName: 'StorieItem',
 	render: function() {
-		if (this.props.isCover){
-			return this.transferPropsTo(StorieCover(null));
-		} else {
-			return this.transferPropsTo(StoriePage(null));
+		var style = {'background-image': 'url(assets/img/stories/'+this.props.background+')'}, 
+			CoverImg;
+		if (this.props.isCover) {
+			style = {'background': this.props.background};
+			CoverImg = React.DOM.img( {className:"cover-image", src:'assets/img/stories/'+this.props.cover} );
 		}
-	}
-});
-
-var StorieCover = React.createClass({displayName: 'StorieCover',
-	render: function() {
 		return (
-			React.DOM.div( {className:'cover storie-item ' + this.props.pos, style:{'background': this.props.background}}, 
-				React.DOM.img( {src:this.props.image} ),
-				React.DOM.p( {className:"storie-text"}, 
-					this.props.text
-				)
+			React.DOM.div( {className:'cover storie-item ' + this.props.pos, style:style}, 
+				CoverImg
 			)
 		);
 	}
 });
 
-var StoriePage = React.createClass({displayName: 'StoriePage',
-	render: function() {
-		return (
-			React.DOM.div( {className:'storie-item ' + this.props.pos, style:{'background-image': this.props.image}}, 
-				React.DOM.p( {className:"storie-text"}, 
-					this.props.text
-				)
-			)
-		);
-	}
-});
 
 
 	//add react components to DOM

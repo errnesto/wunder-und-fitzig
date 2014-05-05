@@ -9,20 +9,52 @@
 	overflow auto
 
 	.storie-title
+		font-size 2em
 		position absolute
+		color #fff
+		text-shadow 0 0 5px #000, 0 0 70px #000
 
 	.arrow
-		position absolute
-		top 300px
+		margin-top 150px
+		width 40px
+		height 300px
+		display block
+		cursor pointer
+		background url(../img/arrows.png) no-repeat right center
+		direction ltr
+		text-indent -9999px
+		&:hover
+			border-bottom 0
+		&.prev
+			float left
 		&.next 
-			right 0
+			background-position left
+			float right
+
+	.storie-text-wrapper
+		position absolute
+		top 560px
+		left 0
+		width 100%
+		padding 0 page-padding
+		@media mobile
+			padding 0 20px
+		.storie-text
+			display block
+			background url(../img/bg.jpg) #fff
+			border-radius 2px
+			box-shadow 0 0 5px -2px #000
+			margin 0
+			padding 20px 40px
+			width 100%
 
 	.storie-item
 		position absolute
 		top 0
 		width 100%
 		height 100%
-		transition 1.2s
+		transition left 1.2s ease-in-out
+		background-size cover
 		&.prev
 			left -100%
 		&.active
@@ -32,5 +64,12 @@
 		&.wraparound
 			left -100%
 
+	.cover-image
+		height 300px
+		display block
+		margin 200px auto
 
-		
+.inner-storie
+	@extends .inner-content
+	position relative
+	height 100%
