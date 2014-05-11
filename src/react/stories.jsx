@@ -96,7 +96,7 @@ var Storie = React.createClass({
 							<p className="storie-text" dangerouslySetInnerHTML={{__html: this.props.items[this.props.currentItem].text}} />
 						</div>
 					</ReactCSSTransitionGroup>
-					<a className="prev arrow" onClick={this.props.slide}>prev</a>
+					{this.props.currentItem === 0 ? '' : <a className="prev arrow" onClick={this.props.slide}>prev</a>}
 					<a className="next arrow" onClick={this.props.slide}>next</a>
 				</div>
 			</div>

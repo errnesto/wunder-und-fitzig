@@ -207,7 +207,7 @@ var Storie = React.createClass({displayName: 'Storie',
 							React.DOM.p( {className:"storie-text", dangerouslySetInnerHTML:{__html: this.props.items[this.props.currentItem].text}} )
 						)
 					),
-					React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
+					this.props.currentItem === 0 ? '' : React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
 					React.DOM.a( {className:"next arrow", onClick:this.props.slide}, "next")
 				)
 			)
