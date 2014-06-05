@@ -32,7 +32,7 @@ gulp.task('html', function () {
 // React task
 gulp.task('react', function () {
     gulp.src('./src/react/main.jsx')
-        .pipe(include())
+        .pipe(include({extensions: 'jsx'}))
         .pipe(react())
         .pipe(gulp.dest('./assets/js'))
         .pipe(connect.reload());

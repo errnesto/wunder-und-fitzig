@@ -4,7 +4,10 @@ var StoriesContainer = React.createClass({
 			stories: [],
 			currentStorie: 0,
 			currentItems: [],
-			recentItems: []
+			recentItems: [],
+
+			scrollOffset: 0,
+			scrollLock: false
 		};
 	},
 
@@ -60,24 +63,49 @@ var StoriesContainer = React.createClass({
 
 		return directions;
 	},
+
+	handleWheel: function (e) {
+		e.preventDefault();
+
+		if (!this.state.scrollLock) {
+			// writing to state directly but we dont need component to update anything
+			this.state.scrollOffset += e.deltaY;
+			console.log(this.state.scrollOffset);
+
+			if (Math.abs(this.state.scrollOffset) > 50) {
+				var newStorie = this.state.currentStorie + 1;
+				if (this.state.scrollOffset < 0) newStorie = this.state.currentStorie - 1;
+
+				if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+					this.setState({
+						currentStorie: newStorie,
+						scrollOffset: 0,
+						scrollLock: true
+					});
+					window.setTimeout(function(){this.state.scrollLock = false;}.bind(this),800);
+				}
+			}
+		}
+
+	},
 	
 	render: function() {
-		var Stories = this.state.stories.map(function (storie, i) {
-			return (
-				<Storie 
-					key={i}
-					items={storie.items}
-					currentItem={this.state.currentItems[i] || 0}
-					slide={this.slide}
-					getSlideDirection={this.getSlideDirection}
-					customer={storie.customer}
-				/>
-			);
-		},this);
+
+		var StorieElem;
+		var storieData = this.state.stories[this.state.currentStorie];
+		if (storieData) {
+			StorieElem = <Storie 
+				items={storieData.items}
+				customer={storieData.customer}
+				currentItem={this.state.currentItems[this.state.currentStorie] || 0}
+				slide={this.slide}
+				getSlideDirection={this.getSlideDirection}
+			/>;
+		}
 
 		return (
-			<section className="stories-container">
-				{Stories}
+			<section className="stories-container" onWheel={this.handleWheel}>
+				{StorieElem}
 			</section>
 		);
 	}

@@ -19,6 +19,7 @@ var helpers = {
   }
 };
 
+	//= require_tree /news
 var NewsFeed = React.createClass({displayName: 'NewsFeed',
 	getInitialState: function() {
 		return {
@@ -125,57 +126,48 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 	}
 });
 
-// var Storie = React.createClass({
-// 	render: function() {
-// 		var StorieItems = {};
-// 		var positions = ['prev','active','next'];
+	//= require_tree /stories
+var Storie = React.createClass({displayName: 'Storie',
+	render: function() {
 
-// 		//create 3 StorieItems so we alwas have a current a previos and a next one
-// 		for (var i = -1; i <= 1; i++) {
-// 			var itemNum = this.props.currentItem + i,
-// 				pos = positions[i+1]; //we count from -1 array starts at 0
+		var currentItem = this.props.items[this.props.currentItem];
 
-// 			//hande boundarys
-// 			if (itemNum < 0) {
-// 				itemNum = this.props.items.length -1;
-// 				pos = 'prev-wrap';
-// 			} 
-// 			if (itemNum > this.props.items.length -1) {
-// 				itemNum = 0;
-// 				pos = 'wraparound';
-// 			}
+		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+		var ReactTransitionGroup = React.addons.TransitionGroup;
 
-// 			var item = this.props.items[itemNum];
+		return (
+			React.DOM.div( {className:"storie"}, 
+				ReactTransitionGroup(null, 
+					StorieItem( 
+						{key:this.props.currentItem, 
+						getSlideDirection:this.props.getSlideDirection,
+						isCover:currentItem.is_cover, 
+						background:currentItem.background, 
+						cover:currentItem.cover}
+					)
+				),
 
-// 			StorieItems[itemNum] = (
-// 				<StorieItem 
-// 					key={'item-'+itemNum} 
-// 					pos={pos} 
-// 					isCover={item.is_cover} 
-// 					background={item.background} 
-// 					cover={item.cover}/>
-// 			);
-// 		}
+				React.DOM.div( {className:"inner-storie"}, 
+					React.DOM.h2( {className:"storie-title"}, 
+						this.props.customer
+					),
 
-// 		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-// 		return (
-// 			<div className="storie">
-// 				{StorieItems}
-// 				<div className="inner-storie">
-// 					<h2 className="storie-title">{this.props.children}</h2>
-// 					<ReactCSSTransitionGroup transitionName="flip">
-// 						<div className="storie-text-wrapper" key={'text'+this.props.currentItem} componentDidEnter={function() {console.log('hallo');}}>
-// 							<p className="storie-text" dangerouslySetInnerHTML={{__html: this.props.items[this.props.currentItem].text}} />
-// 						</div>
-// 					</ReactCSSTransitionGroup>
-// 					{this.props.currentItem === 0 ? '' : <a className="prev arrow" onClick={this.props.slide}>prev</a>}
-// 					<a className="next arrow" onClick={this.props.slide}>next</a>
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-// });
+					ReactCSSTransitionGroup( {transitionName:"flip"}, 
+						React.DOM.div( {className:"storie-text-wrapper", key:'text'+this.props.currentItem} , 
+							React.DOM.p( 
+								{className:"storie-text", 
+								dangerouslySetInnerHTML:{__html: this.props.items[this.props.currentItem].text}} 
+							)
+						)
+					),
+					
+					this.props.currentItem === 0 ? '' : React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
+					React.DOM.a( {className:"next arrow", onClick:this.props.slide}, "next")
+				)
+			)
+		);
+	}
+});
 var StorieItem = React.createClass({displayName: 'StorieItem',
 	mixins: [helpers],
 	//animations
@@ -226,7 +218,10 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 			stories: [],
 			currentStorie: 0,
 			currentItems: [],
-			recentItems: []
+			recentItems: [],
+
+			scrollOffset: 0,
+			scrollLock: false
 		};
 	},
 
@@ -282,24 +277,49 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 
 		return directions;
 	},
+
+	handleWheel: function (e) {
+		e.preventDefault();
+
+		if (!this.state.scrollLock) {
+			// writing to state directly but we dont need component to update anything
+			this.state.scrollOffset += e.deltaY;
+			console.log(this.state.scrollOffset);
+
+			if (Math.abs(this.state.scrollOffset) > 50) {
+				var newStorie = this.state.currentStorie + 1;
+				if (this.state.scrollOffset < 0) newStorie = this.state.currentStorie - 1;
+
+				if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+					this.setState({
+						currentStorie: newStorie,
+						scrollOffset: 0,
+						scrollLock: true
+					});
+					window.setTimeout(function(){this.state.scrollLock = false;}.bind(this),800);
+				}
+			}
+		}
+
+	},
 	
 	render: function() {
-		var Stories = this.state.stories.map(function (storie, i) {
-			return (
-				Storie( 
-					{key:i,
-					items:storie.items,
-					currentItem:this.state.currentItems[i] || 0,
-					slide:this.slide,
-					getSlideDirection:this.getSlideDirection,
-					customer:storie.customer}
-				)
+
+		var StorieElem;
+		var storieData = this.state.stories[this.state.currentStorie];
+		if (storieData) {
+			StorieElem = Storie( 
+				{items:storieData.items,
+				customer:storieData.customer,
+				currentItem:this.state.currentItems[this.state.currentStorie] || 0,
+				slide:this.slide,
+				getSlideDirection:this.getSlideDirection}
 			);
-		},this);
+		}
 
 		return (
-			React.DOM.section( {className:"stories-container"}, 
-				Stories
+			React.DOM.section( {className:"stories-container", onWheel:this.handleWheel}, 
+				StorieElem
 			)
 		);
 	}
