@@ -4,8 +4,9 @@
 	"use-strict";
 	var request = window.superagent;
 
-	//= include news.jsx
-	//= include stories.jsx
+	//= require mixins.jsx
+	//= require_tree /news
+	//= require_tree /stories
 
 	//add react components to DOM
 	window.onload = function () {
