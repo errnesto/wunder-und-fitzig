@@ -128,6 +128,30 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 
 	//= require_tree /stories
 var Storie = React.createClass({displayName: 'Storie',
+	mixins: [helpers],
+	//animations
+	componentWillEnter: function (callback) {
+		//first position for scroll down or up animation
+		var nextClass = this.props.getSwitchDirection().next;
+		this.switchClass('active',nextClass);
+
+		//then after 0 seconds move to center (timeout necessary)
+		window.setTimeout(function () {
+			this.switchClass(nextClass,'active');
+			callback();
+		}.bind(this),10);
+	},
+
+	componentWillLeave: function (callback) {
+		//in timeout to keep animations in sync
+		window.setTimeout(function () {
+			var prevClass = this.props.getSwitchDirection().prev;
+			this.switchClass('active',prevClass);
+		}.bind(this),10);
+
+		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
+	},
+
 	render: function() {
 
 		var currentItem = this.props.items[this.props.currentItem];
@@ -136,33 +160,44 @@ var Storie = React.createClass({displayName: 'Storie',
 		var ReactTransitionGroup = React.addons.TransitionGroup;
 
 		return (
-			React.DOM.div( {className:"storie"}, 
+			React.DOM.div( 
+				{className:"storie active"}, 
 				ReactTransitionGroup(null, 
 					StorieItem( 
-						{key:this.props.currentItem, 
-						getSlideDirection:this.props.getSlideDirection,
-						isCover:currentItem.is_cover, 
-						background:currentItem.background, 
-						cover:currentItem.cover}
+						{key:                this.props.currentItem, 
+						getSlideDirection:  this.props.getSlideDirection,
+						isCover:            currentItem.is_cover, 
+						background:         currentItem.background, 
+						cover:              currentItem.cover}
 					)
 				),
 
-				React.DOM.div( {className:"inner-storie"}, 
-					React.DOM.h2( {className:"storie-title"}, 
+				React.DOM.div( 
+					{className:"inner-storie"}, 
+					React.DOM.h2( 
+						{className:"storie-title"}, 
 						this.props.customer
 					),
 
-					ReactCSSTransitionGroup( {transitionName:"flip"}, 
-						React.DOM.div( {className:"storie-text-wrapper", key:'text'+this.props.currentItem} , 
+					ReactCSSTransitionGroup( 
+						{transitionName:"flip"}, 
+						React.DOM.div( 
+							{className:  "storie-text-wrapper", 
+							key:        'text'+this.props.currentItem} , 
 							React.DOM.p( 
-								{className:"storie-text", 
-								dangerouslySetInnerHTML:{__html: this.props.items[this.props.currentItem].text}} 
+								{className:                "storie-text", 
+								dangerouslySetInnerHTML:  {__html: this.props.items[this.props.currentItem].text}} 
 							)
 						)
 					),
 					
-					this.props.currentItem === 0 ? '' : React.DOM.a( {className:"prev arrow", onClick:this.props.slide}, "prev"),
-					React.DOM.a( {className:"next arrow", onClick:this.props.slide}, "next")
+					this.props.currentItem === 0 ? '' : React.DOM.a( {className:"prev arrow", href:  "prev", onClick:this.props.handleLink}, "prev"),
+					React.DOM.a( 
+						{className:  "next arrow", 
+						href:       "next",
+						onClick:    this.props.handleLink}, 
+						"next"
+					)
 				)
 			)
 		);
@@ -199,12 +234,18 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 		CoverImg;
 
 		if (this.props.isCover) {
-			style = {'background': this.props.background};
-			CoverImg = React.DOM.img( {className:"cover-image", src:'assets/img/stories/'+this.props.cover} );
+			style    = {'background': this.props.background};
+			CoverImg = (
+				React.DOM.img( 
+					{className:  "cover-image", 
+					src:        'assets/img/stories/'+this.props.cover} )
+			);
 		}
 
 		return (
-			React.DOM.div( {className:'storie-item active', style:style}, 
+			React.DOM.div( 
+				{className:  'storie-item active', 
+				style:      style}, 
 				CoverImg
 			)
 		);
@@ -217,10 +258,12 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 		return {
 			stories: [],
 			currentStorie: 0,
+			recentStorie: 0,
+
 			currentItems: [],
 			recentItems: [],
 
-			scrollOffset: 0,
+			scrollOffset: [0,0],
 			scrollLock: false
 		};
 	},
@@ -236,33 +279,86 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 				});
 			}.bind(this));
 
-		window.addEventListener('keydown', this.slide);
+		window.addEventListener('keydown', this.handleKey);
 	},
 
-	slide: function (e) {
+	// event handlers:
+	handleWheel: function (e) {
+		e.preventDefault();
+		var THRESHOLD = 50;
+
+		if (!this.state.scrollLock) {
+			var xScrollOffset = this.state.scrollOffset[0] + e.deltaX;
+			var yScrollOffset = this.state.scrollOffset[1] + e.deltaY;
+
+			this.setState({
+				scrollOffset: [xScrollOffset,yScrollOffset]
+			});
+
+			if (this.state.scrollOffset[1] > THRESHOLD) {
+				this.switchStorie('down');
+				this.setState({scrollOffset: [0,0]});
+			} else if (this.state.scrollOffset[1] < -THRESHOLD) {
+				this.switchStorie('up');
+				this.setState({scrollOffset: [0,0]});
+
+			} else if (this.state.scrollOffset[0] > THRESHOLD) {
+				this.slide('next');
+				this.setState({scrollOffset: [0,0]});
+			} else if (this.state.scrollOffset[0] < -THRESHOLD) {
+				this.slide('prev');
+				this.setState({scrollOffset: [0,0]});
+			}
+		}
+	},
+	handleKey: function (e) {
+		switch (e.keyCode) {
+			case 39:
+				this.slide('next');
+				break;
+			case 37:
+				this.slide('prev');
+				break;
+			case 38:
+				this.switchStorie('up');
+				break;
+			case 40:
+				this.switchStorie('down');
+				break;
+		}
+		
+	},
+	handleLink: function (e) {
+		e.preventDefault();
+		var href = e.target.getAttribute('href');
+		this.slide(href);
+	},
+
+	slide: function (direction) {
 		var tempCurrentItems = this.state.currentItems,
 		tempRecentItems      = this.state.recentItems,
 		numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
 		currentItem          = tempCurrentItems[this.state.currentStorie] || 0,
 		recentItem           = currentItem;
 
-		if (e.keyCode == 39 || e.target.text == 'next') {
-			//next link or right arrow key
-			currentItem ++;
-		} else if (e.keyCode == 37 || e.target.text == 'prev') {
-			//prev link or left arrow key
-			currentItem --;
-		}
+		if (direction == 'next') currentItem ++;
+		if (direction == 'prev') currentItem --;
 
 		if (currentItem > numberOfItems -1) currentItem = 0;
+
 		if (currentItem >= 0) {
 			tempCurrentItems[this.state.currentStorie] = currentItem;
-			tempRecentItems[this.state.currentStorie] = recentItem;
+			tempRecentItems[this.state.currentStorie]  = recentItem;
 
 			this.setState({
 				currentItems: tempCurrentItems,
-				recentItems: tempRecentItems
+				recentItems:  tempRecentItems,
+				scrollLock:   true
 			});
+
+			window.setTimeout(function(){
+				this.state.scrollLock = false;
+			}.bind(this),800);
 		}
 	},
 	getSlideDirection: function () {
@@ -278,48 +374,60 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 		return directions;
 	},
 
-	handleWheel: function (e) {
-		e.preventDefault();
+	switchStorie: function (direction) {
+		var newStorie = this.state.currentStorie + 1;
+		if (direction == 'up') newStorie = this.state.currentStorie - 1;
+		
 
-		if (!this.state.scrollLock) {
-			// writing to state directly but we dont need component to update anything
-			this.state.scrollOffset += e.deltaY;
-			console.log(this.state.scrollOffset);
+		if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+			this.setState({
+				currentStorie: newStorie,
+				recentStorie:  this.state.currentStorie,
+				scrollLock:    true
+			});
 
-			if (Math.abs(this.state.scrollOffset) > 50) {
-				var newStorie = this.state.currentStorie + 1;
-				if (this.state.scrollOffset < 0) newStorie = this.state.currentStorie - 1;
-
-				if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
-					this.setState({
-						currentStorie: newStorie,
-						scrollOffset: 0,
-						scrollLock: true
-					});
-					window.setTimeout(function(){this.state.scrollLock = false;}.bind(this),800);
-				}
-			}
+			window.setTimeout(function(){
+				this.state.scrollLock = false;
+			}.bind(this),800);
 		}
-
+	},
+	getSwitchDirection: function () {
+		var directions = {next: 'down', prev: 'up'};
+		if (this.state.recentStorie > this.state.currentStorie) {
+			//slide up
+			directions = {next: 'up', prev: 'down'};
+		}
+		return directions;
 	},
 	
 	render: function() {
 
-		var StorieElem;
+		var ReactTransitionGroup = React.addons.TransitionGroup;
+
+		var StorieElem = {};
 		var storieData = this.state.stories[this.state.currentStorie];
+
 		if (storieData) {
-			StorieElem = Storie( 
-				{items:storieData.items,
-				customer:storieData.customer,
-				currentItem:this.state.currentItems[this.state.currentStorie] || 0,
-				slide:this.slide,
-				getSlideDirection:this.getSlideDirection}
+			StorieElem = (
+				Storie(
+					{key:                 this.state.currentStorie,
+					items:               storieData.items,
+					customer:            storieData.customer,
+					currentItem:         this.state.currentItems[this.state.currentStorie] || 0,
+					handleLink:          this.handleLink,
+					getSlideDirection:   this.getSlideDirection,
+					getSwitchDirection:  this.getSwitchDirection}
+				)
 			);
 		}
 
 		return (
-			React.DOM.section( {className:"stories-container", onWheel:this.handleWheel}, 
-				StorieElem
+			React.DOM.section( 
+				{className:  "stories-container", 
+				onWheel:    this.handleWheel}, 
+				ReactTransitionGroup(null, 
+					StorieElem
+				)
 			)
 		);
 	}
@@ -330,18 +438,22 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 	window.onload = function () {
 		var newsFeedFrame = document.getElementById('news-frame');
 		var storiesFrame = document.getElementById('stories-frame');
-		if ( newsFeedFrame ) {
-			React.renderComponent(NewsFeed( 
-				{url:"https://graph.facebook.com/wunderundfitzig/feed", 
-				fields:"message,object_id,created_time,picture,link,type",
-				accessToken:"1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE", 
-				limit:"10"} ), 
+
+		if (newsFeedFrame) {
+			React.renderComponent(
+				NewsFeed( 
+					{url:          "https://graph.facebook.com/wunderundfitzig/feed", 
+					fields:       "message,object_id,created_time,picture,link,type",
+					accessToken:  "1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE", 
+					limit:        "10"} ), 
 			newsFeedFrame);
 		}
-		if ( storiesFrame ) {
-			React.renderComponent(StoriesContainer( 
-				{url:"./stories.json", 
-				limit:"10"} ), 
+		
+		if (storiesFrame) {
+			React.renderComponent(
+				StoriesContainer( 
+					{url:    "./stories.json", 
+					limit:  "10"} ), 
 			storiesFrame);
 		}
 	};

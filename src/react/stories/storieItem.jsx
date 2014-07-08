@@ -29,12 +29,18 @@ var StorieItem = React.createClass({
 		CoverImg;
 
 		if (this.props.isCover) {
-			style = {'background': this.props.background};
-			CoverImg = <img className="cover-image" src={'assets/img/stories/'+this.props.cover} />;
+			style    = {'background': this.props.background};
+			CoverImg = (
+				<img 
+					className = "cover-image" 
+					src       = {'assets/img/stories/'+this.props.cover} />
+			);
 		}
 
 		return (
-			<div className={'storie-item active'} style={style}>
+			<div 
+				className = {'storie-item active'} 
+				style     = {style}>
 				{CoverImg}
 			</div>
 		);
