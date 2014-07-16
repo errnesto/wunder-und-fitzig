@@ -6,11 +6,11 @@ var Storie = React.createClass({
 		var nextClass = this.props.getSwitchDirection().next;
 		this.switchClass('active',nextClass);
 
-		//then after 10 seconds move to center (timeout necessary)
+		//then after 17 seconds move to center (timeout necessary to trigger animation)
 		window.setTimeout(function () {
 			this.switchClass(nextClass,'active');
 			callback();
-		}.bind(this),20);
+		}.bind(this),17);
 	},
 
 	componentWillLeave: function (callback) {
@@ -18,7 +18,7 @@ var Storie = React.createClass({
 		window.setTimeout(function () {
 			var prevClass = this.props.getSwitchDirection().prev;
 			this.switchClass('active',prevClass);
-		}.bind(this),20);
+		}.bind(this),17);
 
 		// callback removes element when transion is finsihed
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
