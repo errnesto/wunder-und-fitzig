@@ -7,11 +7,15 @@ var StoriesContainer = React.createClass({
 
 			currentItems:  [],
 			recentItems:   [],
-
-			scrollOffset:  [0,0],
-			scrollLock:    false,
-			animationQueue:  []
 		};
+	},
+
+	componentWillMount: function () {
+		this.xScrollOffset  = 0;
+		this.yScrollOffset  = 0;
+
+		this.scrollLock     = false;
+		this.animationQueue = [];
 	},
 
 	componentDidMount: function() {
@@ -33,48 +37,40 @@ var StoriesContainer = React.createClass({
 		e.preventDefault();
 		var THRESHOLD = 50;
 
-		var xScrollOffset = this.state.scrollOffset[0] + e.deltaX;
-		var yScrollOffset = this.state.scrollOffset[1] + e.deltaY;
+		this.xScrollOffset += e.deltaX;
+		this.yScrollOffset += e.deltaY;
 
-		this.setState({
-			scrollOffset: [xScrollOffset,yScrollOffset]
-		});
-
-		if (yScrollOffset > THRESHOLD) {
+		if (this.yScrollOffset > THRESHOLD) {
 			this.switchStorie('down');
-			this.setState({scrollOffset: [0,0]});
-		} else if (yScrollOffset < -THRESHOLD) {
+			this.yScrollOffset = 0;
+		} else if (this.yScrollOffset < -THRESHOLD) {
 			this.switchStorie('up');
-			this.setState({scrollOffset: [0,0]});
+			this.yScrollOffset = 0;
 
-		} else if (xScrollOffset > THRESHOLD) {
+		} else if (this.xScrollOffset > THRESHOLD) {
 			this.slide('next');
-			this.setState({scrollOffset: [0,0]});
-		} else if (xScrollOffset < -THRESHOLD) {
+			this.xScrollOffset = 0;
+		} else if (this.xScrollOffset < -THRESHOLD) {
 			this.slide('prev');
-			this.setState({scrollOffset: [0,0]});
+			this.xScrollOffset = 0;
 		}
 
 	},
 	handleKey: function (e) {
-		var q = this.state.animationQueue;
-
 		switch (e.keyCode) {
 			case 39:
-				if (!this.slide('next')) q.push('next');
+				if (!this.slide('next')) this.animationQueue.push('next');
 				break;
 			case 37:
-				if (!this.slide('prev')) q.push('prev');
+				if (!this.slide('prev')) this.animationQueue.push('prev');
 				break;
 			case 38:
-				if (!this.switchStorie('up')) q.push('up');
+				if (!this.switchStorie('up')) this.animationQueue.push('up');
 				break;
 			case 40:
-				if (!this.switchStorie('down')) q.push('down');
+				if (!this.switchStorie('down')) this.animationQueue.push('down');
 				break;
 		}
-
-		this.setState({animationQueue: q});
 	},
 	handleLink: function (e) {
 		e.preventDefault();
@@ -84,6 +80,8 @@ var StoriesContainer = React.createClass({
 
 	slide: function (direction) {
 		if(!this.state.scrollLock) {
+			this.scrollLock = true;
+
 			var tempCurrentItems = this.state.currentItems,
 			tempRecentItems      = this.state.recentItems,
 			numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
@@ -101,10 +99,10 @@ var StoriesContainer = React.createClass({
 
 				this.setState({
 					currentItems: tempCurrentItems,
-					recentItems:  tempRecentItems,
-					scrollLock:   true
+					recentItems:  tempRecentItems
 				});
 
+				this.scrollLock = false;
 				this.checkAnimationQueue();
 			} 
 			return true;
@@ -126,6 +124,8 @@ var StoriesContainer = React.createClass({
 
 	switchStorie: function (direction) {
 		if(!this.state.scrollLock) {
+			this.scrollLock = true;
+
 			var newStorie = this.state.currentStorie + 1;
 			if (direction == 'up') newStorie = this.state.currentStorie - 1;
 
@@ -133,10 +133,10 @@ var StoriesContainer = React.createClass({
 				this.setState({
 					currentStorie: newStorie,
 					recentStorie:  this.state.currentStorie,
-					scrollLock:    true
 				});
 
-			this.checkAnimationQueue();				
+				this.scrollLock = false;
+				this.checkAnimationQueue();				
 			}
 			return true;
 		}
@@ -153,12 +153,10 @@ var StoriesContainer = React.createClass({
 
 	checkAnimationQueue: function () {
 		window.setTimeout(function(){
-			//allow new action when animation is finished
-			this.setState({scrollLock: false});
-
-			var queueHasItems = this.state.animationQueue.length > 0;
+			var queueHasItems = this.animationQueue.length > 0;
 
 			if (queueHasItems) {
+				//next in queue equals next or prev
 				var isNextPrevAction = ['next','prev'].indexOf(this.state.animationQueue[0]) >= 0;
 				if (isNextPrevAction) {
 					this.slide(this.state.animationQueue.shift());
