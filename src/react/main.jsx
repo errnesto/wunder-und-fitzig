@@ -4,6 +4,10 @@
 	"use-strict";
 	var request = window.superagent;
 
+	var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+	var ReactTransitionGroup    = React.addons.TransitionGroup;
+	var classSet                = React.addons.classSet;
+
 	//= require mixins.jsx
 	//= require_tree /news
 	//= require_tree /stories

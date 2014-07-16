@@ -3,6 +3,9 @@
 	position relative
 	overflow hidden
 
+.invalid
+	transition top 0.5s, left 0.5s
+
 .storie
 	position absolute
 	float left
@@ -17,6 +20,13 @@
 		top 0%
 	&.down
 		top 100%
+
+	&.invalid-up
+		@extend .invalid
+		top 100px
+	&.invalid-down
+		@extend .invalid
+		top -100px
 
 	.storie-title
 		font-size 2em
@@ -71,6 +81,10 @@
 			left 0%
 		&.right
 			left 100%
+
+		&.invalid-left
+			@extend .invalid
+			left 100px
 
 		
 	.cover-image

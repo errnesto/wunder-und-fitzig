@@ -25,8 +25,16 @@ var StorieItem = React.createClass({
 
 
 	render: function() {
-		var style = {'background-image': 'url(assets/img/stories/'+this.props.background+')'}, 
-		CoverImg;
+		console.log(this.props.invalid);
+		var classNames = classSet({
+			'storie-item'   : true,
+			'active'        : true,
+			'invalid-left'  : this.props.invalid == 'prev'
+		});
+		var style      = {
+			'background-image': 'url(assets/img/stories/'+this.props.background+')'
+		};
+		var CoverImg;
 
 		if (this.props.isCover) {
 			style    = {'background': this.props.background};
@@ -39,7 +47,7 @@ var StorieItem = React.createClass({
 
 		return (
 			<div 
-				className = {'storie-item active'} 
+				className = {classNames} 
 				style     = {style}>
 				{CoverImg}
 			</div>

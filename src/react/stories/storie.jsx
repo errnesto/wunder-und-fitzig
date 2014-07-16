@@ -26,18 +26,22 @@ var Storie = React.createClass({
 
 	//render
 	render: function() {
-
+		console.log(this.props.invalid);
+		var classNames = classSet({
+			'storie'       : true,
+			'active'       : true,
+			'invalid-up'   : this.props.invalid == 'up',
+			'invalid-down' : this.props.invalid == 'down'
+		});
 		var currentItem = this.props.items[this.props.currentItem];
-
-		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-		var ReactTransitionGroup = React.addons.TransitionGroup;
 
 		return (
 			<div 
-				className="storie active">
+				className = {classNames}>
 				<ReactTransitionGroup>
 					<StorieItem 
 						key               = {this.props.customer+'-'+this.props.currentItem} 
+						invalid           = {this.props.invalid}
 						getSlideDirection = {this.props.getSlideDirection}
 						isCover           = {currentItem.is_cover} 
 						background        = {currentItem.background} 

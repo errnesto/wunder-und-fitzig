@@ -7,6 +7,8 @@ var StoriesContainer = React.createClass({
 
 			currentItems:  [],
 			recentItems:   [],
+
+			invalid:       false
 		};
 	},
 
@@ -80,8 +82,6 @@ var StoriesContainer = React.createClass({
 
 	slide: function (direction) {
 		if(!this.scrollLock) {
-			this.scrollLock = true;
-
 			var tempCurrentItems = this.state.currentItems,
 			tempRecentItems      = this.state.recentItems,
 			numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
@@ -94,6 +94,8 @@ var StoriesContainer = React.createClass({
 			if (currentItem > numberOfItems -1) currentItem = 0;
 
 			if (currentItem >= 0) {
+				this.scrollLock = true;
+
 				tempCurrentItems[this.state.currentStorie] = currentItem;
 				tempRecentItems[this.state.currentStorie]  = recentItem;
 
@@ -103,7 +105,9 @@ var StoriesContainer = React.createClass({
 				});
 
 				this.checkAnimationQueue();
-			} 
+			} else {
+				this.setInvalid(direction);
+			}
 			return true;
 		}
 		return false;
@@ -123,18 +127,21 @@ var StoriesContainer = React.createClass({
 
 	switchStorie: function (direction) {
 		if(!this.scrollLock) {
-			this.scrollLock = true;
 
 			var newStorie = this.state.currentStorie + 1;
 			if (direction == 'up') newStorie = this.state.currentStorie - 1;
 
 			if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+				this.scrollLock = true;
+
 				this.setState({
 					currentStorie: newStorie,
 					recentStorie:  this.state.currentStorie,
 				});
 
 				this.checkAnimationQueue();				
+			} else {
+				this.setInvalid(direction);
 			}
 			return true;
 		}
@@ -169,10 +176,14 @@ var StoriesContainer = React.createClass({
 			}
 		}.bind(this),1250); //animation duration from css + 50ms safety
 	},
+	setInvalid: function (direction) {
+		this.setState({invalid: direction});
+		window.setTimeout(function(){
+			this.setState({invalid: false});
+		}.bind(this),500);
+	},
 	
 	render: function() {
-
-		var ReactTransitionGroup = React.addons.TransitionGroup;
 
 		var StorieElem = {};
 		var storieData = this.state.stories[this.state.currentStorie];
@@ -181,10 +192,10 @@ var StoriesContainer = React.createClass({
 			StorieElem = (
 				<Storie
 					key                = {'story'+this.state.currentStorie}
-					index              = {this.state.currentStorie}
 					items              = {storieData.items}
 					customer           = {storieData.customer}
 					currentItem        = {this.state.currentItems[this.state.currentStorie] || 0}
+					invalid            = {this.state.invalid}
 					handleLink         = {this.handleLink}
 					getSlideDirection  = {this.getSlideDirection}
 					getSwitchDirection = {this.getSwitchDirection}

@@ -4,6 +4,10 @@
 	"use-strict";
 	var request = window.superagent;
 
+	var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+	var ReactTransitionGroup    = React.addons.TransitionGroup;
+	var classSet                = React.addons.classSet;
+
 var helpers = {
   switchClass: function (from, to) {
   	var domNode = this.getDOMNode();
@@ -155,18 +159,22 @@ var Storie = React.createClass({displayName: 'Storie',
 
 	//render
 	render: function() {
-
+		console.log(this.props.invalid);
+		var classNames = classSet({
+			'storie'       : true,
+			'active'       : true,
+			'invalid-up'   : this.props.invalid == 'up',
+			'invalid-down' : this.props.invalid == 'down'
+		});
 		var currentItem = this.props.items[this.props.currentItem];
-
-		var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-		var ReactTransitionGroup = React.addons.TransitionGroup;
 
 		return (
 			React.DOM.div( 
-				{className:"storie active"}, 
+				{className:  classNames}, 
 				ReactTransitionGroup(null, 
 					StorieItem( 
 						{key:                this.props.customer+'-'+this.props.currentItem, 
+						invalid:            this.props.invalid,
 						getSlideDirection:  this.props.getSlideDirection,
 						isCover:            currentItem.is_cover, 
 						background:         currentItem.background, 
@@ -232,8 +240,16 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 
 
 	render: function() {
-		var style = {'background-image': 'url(assets/img/stories/'+this.props.background+')'}, 
-		CoverImg;
+		console.log(this.props.invalid);
+		var classNames = classSet({
+			'storie-item'   : true,
+			'active'        : true,
+			'invalid-left'  : this.props.invalid == 'prev'
+		});
+		var style      = {
+			'background-image': 'url(assets/img/stories/'+this.props.background+')'
+		};
+		var CoverImg;
 
 		if (this.props.isCover) {
 			style    = {'background': this.props.background};
@@ -246,7 +262,7 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 
 		return (
 			React.DOM.div( 
-				{className:  'storie-item active', 
+				{className:  classNames, 
 				style:      style}, 
 				CoverImg
 			)
@@ -264,6 +280,8 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 
 			currentItems:  [],
 			recentItems:   [],
+
+			invalid:       false
 		};
 	},
 
@@ -337,8 +355,6 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 
 	slide: function (direction) {
 		if(!this.scrollLock) {
-			this.scrollLock = true;
-
 			var tempCurrentItems = this.state.currentItems,
 			tempRecentItems      = this.state.recentItems,
 			numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
@@ -351,6 +367,8 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 			if (currentItem > numberOfItems -1) currentItem = 0;
 
 			if (currentItem >= 0) {
+				this.scrollLock = true;
+
 				tempCurrentItems[this.state.currentStorie] = currentItem;
 				tempRecentItems[this.state.currentStorie]  = recentItem;
 
@@ -360,7 +378,9 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 				});
 
 				this.checkAnimationQueue();
-			} 
+			} else {
+				this.setInvalid(direction);
+			}
 			return true;
 		}
 		return false;
@@ -380,18 +400,21 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 
 	switchStorie: function (direction) {
 		if(!this.scrollLock) {
-			this.scrollLock = true;
 
 			var newStorie = this.state.currentStorie + 1;
 			if (direction == 'up') newStorie = this.state.currentStorie - 1;
 
 			if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+				this.scrollLock = true;
+
 				this.setState({
 					currentStorie: newStorie,
 					recentStorie:  this.state.currentStorie,
 				});
 
 				this.checkAnimationQueue();				
+			} else {
+				this.setInvalid(direction);
 			}
 			return true;
 		}
@@ -426,10 +449,14 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 			}
 		}.bind(this),1250); //animation duration from css + 50ms safety
 	},
+	setInvalid: function (direction) {
+		this.setState({invalid: direction});
+		window.setTimeout(function(){
+			this.setState({invalid: false});
+		}.bind(this),500);
+	},
 	
 	render: function() {
-
-		var ReactTransitionGroup = React.addons.TransitionGroup;
 
 		var StorieElem = {};
 		var storieData = this.state.stories[this.state.currentStorie];
@@ -438,10 +465,10 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 			StorieElem = (
 				Storie(
 					{key:                 'story'+this.state.currentStorie,
-					index:               this.state.currentStorie,
 					items:               storieData.items,
 					customer:            storieData.customer,
 					currentItem:         this.state.currentItems[this.state.currentStorie] || 0,
+					invalid:             this.state.invalid,
 					handleLink:          this.handleLink,
 					getSlideDirection:   this.getSlideDirection,
 					getSwitchDirection:  this.getSwitchDirection}
