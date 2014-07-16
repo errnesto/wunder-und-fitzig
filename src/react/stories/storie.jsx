@@ -24,6 +24,7 @@ var Storie = React.createClass({
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
 	},
 
+	//render
 	render: function() {
 
 		var currentItem = this.props.items[this.props.currentItem];

@@ -79,7 +79,7 @@ var StoriesContainer = React.createClass({
 	},
 
 	slide: function (direction) {
-		if(!this.state.scrollLock) {
+		if(!this.scrollLock) {
 			this.scrollLock = true;
 
 			var tempCurrentItems = this.state.currentItems,
@@ -102,7 +102,6 @@ var StoriesContainer = React.createClass({
 					recentItems:  tempRecentItems
 				});
 
-				this.scrollLock = false;
 				this.checkAnimationQueue();
 			} 
 			return true;
@@ -123,7 +122,7 @@ var StoriesContainer = React.createClass({
 	},
 
 	switchStorie: function (direction) {
-		if(!this.state.scrollLock) {
+		if(!this.scrollLock) {
 			this.scrollLock = true;
 
 			var newStorie = this.state.currentStorie + 1;
@@ -135,7 +134,6 @@ var StoriesContainer = React.createClass({
 					recentStorie:  this.state.currentStorie,
 				});
 
-				this.scrollLock = false;
 				this.checkAnimationQueue();				
 			}
 			return true;
@@ -153,16 +151,19 @@ var StoriesContainer = React.createClass({
 
 	checkAnimationQueue: function () {
 		window.setTimeout(function(){
+			// allow other animations 
+			this.scrollLock = false;
+			// check for pending animations
 			var queueHasItems = this.animationQueue.length > 0;
 
 			if (queueHasItems) {
 				//next in queue equals next or prev
-				var isNextPrevAction = ['next','prev'].indexOf(this.state.animationQueue[0]) >= 0;
+				var isNextPrevAction = ['next','prev'].indexOf(this.animationQueue[0]) >= 0;
 				if (isNextPrevAction) {
-					this.slide(this.state.animationQueue.shift());
+					this.slide(this.animationQueue.shift());
 				} else {
 					//must be upDownAction
-					this.switchStorie(this.state.animationQueue.shift());
+					this.switchStorie(this.animationQueue.shift());
 				}
 				
 			}
@@ -180,6 +181,7 @@ var StoriesContainer = React.createClass({
 			StorieElem = (
 				<Storie
 					key                = {'story'+this.state.currentStorie}
+					index              = {this.state.currentStorie}
 					items              = {storieData.items}
 					customer           = {storieData.customer}
 					currentItem        = {this.state.currentItems[this.state.currentStorie] || 0}
