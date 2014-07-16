@@ -6,11 +6,11 @@ var Storie = React.createClass({
 		var nextClass = this.props.getSwitchDirection().next;
 		this.switchClass('active',nextClass);
 
-		//then after 0 seconds move to center (timeout necessary)
+		//then after 10 seconds move to center (timeout necessary)
 		window.setTimeout(function () {
 			this.switchClass(nextClass,'active');
 			callback();
-		}.bind(this),10);
+		}.bind(this),20);
 	},
 
 	componentWillLeave: function (callback) {
@@ -18,8 +18,9 @@ var Storie = React.createClass({
 		window.setTimeout(function () {
 			var prevClass = this.props.getSwitchDirection().prev;
 			this.switchClass('active',prevClass);
-		}.bind(this),10);
+		}.bind(this),20);
 
+		// callback removes element when transion is finsihed
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
 	},
 
@@ -35,7 +36,7 @@ var Storie = React.createClass({
 				className="storie active">
 				<ReactTransitionGroup>
 					<StorieItem 
-						key               = {this.props.currentItem} 
+						key               = {this.props.customer+'-'+this.props.currentItem} 
 						getSlideDirection = {this.props.getSlideDirection}
 						isCover           = {currentItem.is_cover} 
 						background        = {currentItem.background} 

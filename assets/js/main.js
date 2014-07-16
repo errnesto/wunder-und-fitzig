@@ -135,11 +135,11 @@ var Storie = React.createClass({displayName: 'Storie',
 		var nextClass = this.props.getSwitchDirection().next;
 		this.switchClass('active',nextClass);
 
-		//then after 0 seconds move to center (timeout necessary)
+		//then after 10 seconds move to center (timeout necessary)
 		window.setTimeout(function () {
 			this.switchClass(nextClass,'active');
 			callback();
-		}.bind(this),10);
+		}.bind(this),20);
 	},
 
 	componentWillLeave: function (callback) {
@@ -147,8 +147,9 @@ var Storie = React.createClass({displayName: 'Storie',
 		window.setTimeout(function () {
 			var prevClass = this.props.getSwitchDirection().prev;
 			this.switchClass('active',prevClass);
-		}.bind(this),10);
+		}.bind(this),20);
 
+		// callback removes element when transion is finsihed
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
 	},
 
@@ -164,7 +165,7 @@ var Storie = React.createClass({displayName: 'Storie',
 				{className:"storie active"}, 
 				ReactTransitionGroup(null, 
 					StorieItem( 
-						{key:                this.props.currentItem, 
+						{key:                this.props.customer+'-'+this.props.currentItem, 
 						getSlideDirection:  this.props.getSlideDirection,
 						isCover:            currentItem.is_cover, 
 						background:         currentItem.background, 
@@ -215,7 +216,7 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 		window.setTimeout(function () {
 			this.switchClass(nextClass,'active');
 			callback();
-		}.bind(this),0);
+		}.bind(this),20);
 	},
 
 	componentWillLeave: function (callback) {
@@ -223,7 +224,7 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 		window.setTimeout(function () {
 			var prevClass = this.props.getSlideDirection().prev;
 			this.switchClass('active',prevClass);
-		}.bind(this),0);
+		}.bind(this),20);
 
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
 	},
@@ -256,15 +257,16 @@ var StorieItem = React.createClass({displayName: 'StorieItem',
 var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 	getInitialState: function() {
 		return {
-			stories: [],
+			stories:       [],
 			currentStorie: 0,
-			recentStorie: 0,
+			recentStorie:  0,
 
-			currentItems: [],
-			recentItems: [],
+			currentItems:  [],
+			recentItems:   [],
 
-			scrollOffset: [0,0],
-			scrollLock: false
+			scrollOffset:  [0,0],
+			scrollLock:    false,
+			animationQueue:  []
 		};
 	},
 
@@ -287,46 +289,48 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 		e.preventDefault();
 		var THRESHOLD = 50;
 
-		if (!this.state.scrollLock) {
-			var xScrollOffset = this.state.scrollOffset[0] + e.deltaX;
-			var yScrollOffset = this.state.scrollOffset[1] + e.deltaY;
+		var xScrollOffset = this.state.scrollOffset[0] + e.deltaX;
+		var yScrollOffset = this.state.scrollOffset[1] + e.deltaY;
 
-			this.setState({
-				scrollOffset: [xScrollOffset,yScrollOffset]
-			});
+		this.setState({
+			scrollOffset: [xScrollOffset,yScrollOffset]
+		});
 
-			if (this.state.scrollOffset[1] > THRESHOLD) {
-				this.switchStorie('down');
-				this.setState({scrollOffset: [0,0]});
-			} else if (this.state.scrollOffset[1] < -THRESHOLD) {
-				this.switchStorie('up');
-				this.setState({scrollOffset: [0,0]});
+		if (yScrollOffset > THRESHOLD) {
+			this.switchStorie('down');
+			this.setState({scrollOffset: [0,0]});
+		} else if (yScrollOffset < -THRESHOLD) {
+			this.switchStorie('up');
+			this.setState({scrollOffset: [0,0]});
 
-			} else if (this.state.scrollOffset[0] > THRESHOLD) {
-				this.slide('next');
-				this.setState({scrollOffset: [0,0]});
-			} else if (this.state.scrollOffset[0] < -THRESHOLD) {
-				this.slide('prev');
-				this.setState({scrollOffset: [0,0]});
-			}
+		} else if (xScrollOffset > THRESHOLD) {
+			this.slide('next');
+			this.setState({scrollOffset: [0,0]});
+		} else if (xScrollOffset < -THRESHOLD) {
+			this.slide('prev');
+			this.setState({scrollOffset: [0,0]});
 		}
+
 	},
 	handleKey: function (e) {
+		var q = this.state.animationQueue;
+
 		switch (e.keyCode) {
 			case 39:
-				this.slide('next');
+				if (!this.slide('next')) q.push('next');
 				break;
 			case 37:
-				this.slide('prev');
+				if (!this.slide('prev')) q.push('prev');
 				break;
 			case 38:
-				this.switchStorie('up');
+				if (!this.switchStorie('up')) q.push('up');
 				break;
 			case 40:
-				this.switchStorie('down');
+				if (!this.switchStorie('down')) q.push('down');
 				break;
 		}
-		
+
+		this.setState({animationQueue: q});
 	},
 	handleLink: function (e) {
 		e.preventDefault();
@@ -335,31 +339,33 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 	},
 
 	slide: function (direction) {
-		var tempCurrentItems = this.state.currentItems,
-		tempRecentItems      = this.state.recentItems,
-		numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
-		currentItem          = tempCurrentItems[this.state.currentStorie] || 0,
-		recentItem           = currentItem;
+		if(!this.state.scrollLock) {
+			var tempCurrentItems = this.state.currentItems,
+			tempRecentItems      = this.state.recentItems,
+			numberOfItems        = this.state.stories[this.state.currentStorie].items.length,
+			currentItem          = tempCurrentItems[this.state.currentStorie] || 0,
+			recentItem           = currentItem;
 
-		if (direction == 'next') currentItem ++;
-		if (direction == 'prev') currentItem --;
+			if (direction == 'next') currentItem ++;
+			if (direction == 'prev') currentItem --;
 
-		if (currentItem > numberOfItems -1) currentItem = 0;
+			if (currentItem > numberOfItems -1) currentItem = 0;
 
-		if (currentItem >= 0) {
-			tempCurrentItems[this.state.currentStorie] = currentItem;
-			tempRecentItems[this.state.currentStorie]  = recentItem;
+			if (currentItem >= 0) {
+				tempCurrentItems[this.state.currentStorie] = currentItem;
+				tempRecentItems[this.state.currentStorie]  = recentItem;
 
-			this.setState({
-				currentItems: tempCurrentItems,
-				recentItems:  tempRecentItems,
-				scrollLock:   true
-			});
+				this.setState({
+					currentItems: tempCurrentItems,
+					recentItems:  tempRecentItems,
+					scrollLock:   true
+				});
 
-			window.setTimeout(function(){
-				this.state.scrollLock = false;
-			}.bind(this),800);
+				this.checkAnimationQueue();
+			} 
+			return true;
 		}
+		return false;
 	},
 	getSlideDirection: function () {
 		var currentItem = this.state.currentItems[this.state.currentStorie],
@@ -375,21 +381,22 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 	},
 
 	switchStorie: function (direction) {
-		var newStorie = this.state.currentStorie + 1;
-		if (direction == 'up') newStorie = this.state.currentStorie - 1;
-		
+		if(!this.state.scrollLock) {
+			var newStorie = this.state.currentStorie + 1;
+			if (direction == 'up') newStorie = this.state.currentStorie - 1;
 
-		if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
-			this.setState({
-				currentStorie: newStorie,
-				recentStorie:  this.state.currentStorie,
-				scrollLock:    true
-			});
+			if (newStorie >= 0 && newStorie <= this.state.stories.length-1) {
+				this.setState({
+					currentStorie: newStorie,
+					recentStorie:  this.state.currentStorie,
+					scrollLock:    true
+				});
 
-			window.setTimeout(function(){
-				this.state.scrollLock = false;
-			}.bind(this),800);
+			this.checkAnimationQueue();				
+			}
+			return true;
 		}
+		return false;
 	},
 	getSwitchDirection: function () {
 		var directions = {next: 'down', prev: 'up'};
@@ -398,6 +405,26 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 			directions = {next: 'up', prev: 'down'};
 		}
 		return directions;
+	},
+
+	checkAnimationQueue: function () {
+		window.setTimeout(function(){
+			//allow new action when animation is finished
+			this.setState({scrollLock: false});
+
+			var queueHasItems = this.state.animationQueue.length > 0;
+
+			if (queueHasItems) {
+				var isNextPrevAction = ['next','prev'].indexOf(this.state.animationQueue[0]) >= 0;
+				if (isNextPrevAction) {
+					this.slide(this.state.animationQueue.shift());
+				} else {
+					//must be upDownAction
+					this.switchStorie(this.state.animationQueue.shift());
+				}
+				
+			}
+		}.bind(this),1250); //animation duration from css + 50ms safety
 	},
 	
 	render: function() {
@@ -410,7 +437,7 @@ var StoriesContainer = React.createClass({displayName: 'StoriesContainer',
 		if (storieData) {
 			StorieElem = (
 				Storie(
-					{key:                 this.state.currentStorie,
+					{key:                 'story'+this.state.currentStorie,
 					items:               storieData.items,
 					customer:            storieData.customer,
 					currentItem:         this.state.currentItems[this.state.currentStorie] || 0,

@@ -1,6 +1,7 @@
 .stories-container
 	height 100%
 	position relative
+	overflow hidden
 
 .storie
 	position absolute
@@ -16,8 +17,6 @@
 		top 0%
 	&.down
 		top 100%
-
-
 
 	.storie-title
 		font-size 2em
@@ -78,6 +77,10 @@
 		height 300px
 		display block
 		margin 200px auto
+
+.invalidSlide
+	transition left 0.5s
+	left 200px
 
 .inner-storie
 	@extends .inner-content

@@ -10,7 +10,7 @@ var StorieItem = React.createClass({
 		window.setTimeout(function () {
 			this.switchClass(nextClass,'active');
 			callback();
-		}.bind(this),0);
+		}.bind(this),20);
 	},
 
 	componentWillLeave: function (callback) {
@@ -18,7 +18,7 @@ var StorieItem = React.createClass({
 		window.setTimeout(function () {
 			var prevClass = this.props.getSlideDirection().prev;
 			this.switchClass('active',prevClass);
-		}.bind(this),0);
+		}.bind(this),20);
 
 		this.prefixedEvent(this.getDOMNode(),'transitionEnd',callback);
 	},
