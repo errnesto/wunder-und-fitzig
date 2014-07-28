@@ -3,7 +3,7 @@ var app        = express();
 var url        = require('url');
 var nodejsx    = require('node-jsx').install();
 var React      = require('react');
-var Page       = require('./client');
+var Page       = require('./client.jsx');
 
 
 if (app.get('env') == 'development') {
@@ -11,6 +11,8 @@ if (app.get('env') == 'development') {
 	  port: 35729
 	}));
 }
+
+app.use('/assets', express.static(__dirname + '/assets'));
 
 app.get('/', function(req, res){
 	var path   = url.parse(req.url).pathname;

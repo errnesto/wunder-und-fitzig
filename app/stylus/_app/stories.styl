@@ -1,0 +1,102 @@
+.stories-container
+	height 100%
+	position relative
+	overflow hidden
+
+.invalid
+	transition top 0.5s, left 0.5s
+
+.storie
+	position absolute
+	float left
+	width 100%
+	height 100%
+	min-height 650px
+	overflow hidden
+	transition top 1.2s
+	&.up
+		top -100%
+	&.active
+		top 0%
+	&.down
+		top 100%
+
+	&.invalid-up
+		@extend .invalid
+		top 100px
+	&.invalid-down
+		@extend .invalid
+		top -100px
+
+	.storie-title
+		font-size 2em
+		position absolute
+		color #fff
+		text-shadow 0 0 5px #000, 0 0 70px #000
+
+	.arrow
+		margin-top 150px
+		width 40px
+		height 300px
+		display block
+		cursor pointer
+		background url(../img/arrows.png) no-repeat right center
+		direction ltr
+		text-indent -9999px
+		&:hover
+			border-bottom 0
+		&.prev
+			float left
+		&.next 
+			background-position left
+			float right
+
+	.storie-text-wrapper
+		position absolute
+		top 560px
+		left 0
+		width 100%
+		padding 0 page-padding
+		@media mobile
+			padding 0 20px
+		.storie-text
+			display block
+			background url(../img/bg.jpg) #fff
+			border-radius 2px
+			box-shadow 0 0 5px -2px #000
+			margin 0
+			padding 20px 40px
+			width 100%
+
+	.storie-item
+		position absolute
+		top 0
+		width 100%
+		height 100%
+		transition left 1.2s ease-in-out
+		background-size cover
+		&.left
+			left -100%
+		&.active
+			left 0%
+		&.right
+			left 100%
+
+		&.invalid-left
+			@extend .invalid
+			left 100px
+
+		
+	.cover-image
+		height 300px
+		display block
+		margin 200px auto
+
+.invalidSlide
+	transition left 0.5s
+	left 200px
+
+.inner-storie
+	@extends .inner-content
+	position relative
+	height 100%

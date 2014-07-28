@@ -1,11 +1,16 @@
 // Load Gulp and your plugins
 var gulp       = require('gulp');
+var plumber    = require('gulp-plumber');
 var nodemon    = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
 var open       = require("gulp-open");
+var stylus     = require('gulp-stylus');
+var nib        = require('nib');
+var browserify = require('browserify');
+var source     = require('vinyl-source-stream');
 
 var paths = {
-	styles: 'app/stylus/**/*',
+	styles: 'app/stylus/**/*.styl',
 	react:  'app/jsx/**/*'
 };
 
@@ -23,18 +28,31 @@ gulp.task('open-browser', function () {
 	.pipe(open("", options));
 });
 
-gulp.task('test', function () {
-	console.log('kkkkkkkk')
-	gulp.src('./server.js')
-		.pipe(livereload());
+gulp.task('stylus', function () {
+    gulp.src('app/stylus/main.styl')
+    		.pipe(plumber())
+        .pipe(stylus({
+            use: nib(), 
+            set: ['compress']
+        }))
+        .pipe(gulp.dest('./assets/css'))
+        .pipe(livereload());
+});
+
+gulp.task('browserify', function () {
+    browserify('./client.jsx')
+    .bundle()
+    .pipe(source('main.js'))
+    .pipe(gulp.dest('./assets/js/'))
+    .pipe(livereload());
 });
 
 // Watch task
 gulp.task('watch', function () {
-    gulp.watch('./server.js', ['test']);
+    gulp.watch(paths.styles, ['stylus']);
 });
 
 //default task
-gulp.task('default', ['server','watch']);
+gulp.task('default', ['server','stylus','browserify','watch']);
 
 gulp.task('open', ['server','open-browser','watch']);

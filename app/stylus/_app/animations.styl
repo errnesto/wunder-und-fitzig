@@ -1,0 +1,49 @@
+//keyframe animations
+@keyframes fadeIn
+	0%
+		opacity 0
+	100%
+		opacity 1
+@keyframes pulse
+	0%
+		opacity 1
+		transform: scale(1);
+	50%
+		opacity 0.4
+		transform: scale(1.1);
+	100%
+		opacity 1
+		transform: scale(1);
+
+@keyframes flip
+	0%
+		transform rotateX(0deg)
+	50%
+		transform rotateX(90deg)
+	100%
+		transform rotateX(0deg)
+
+//animation helper
+animate()
+	-webkit-animation	arguments
+	-moz-animation		arguments
+	-o-animation		arguments
+	animation			arguments
+
+
+//react animations
+
+.flip-enter
+	transform rotateX(90deg)
+	transition transform .2s 1s ease-out
+
+.flip-enter.flip-enter-active
+	transform rotateX(0)
+
+
+.flip-leave
+	transform rotateX(0)
+	transition transform .2s .8s ease-in
+
+.flip-leave.flip-leave-active 
+	transform rotateX(90deg)
