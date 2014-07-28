@@ -1,9 +1,9 @@
 /**
  * @jsx React.DOM
  */
- 
+
 var React   = require('react');
-var NewsPost = require('./newsPost.jsx');
+var request = require('superagent');
 
 var NewsPost = React.createClass({
 	getInitialState: function() {

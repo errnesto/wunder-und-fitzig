@@ -1,7 +1,7 @@
 /**
  * @jsx React.DOM
  */
- 
+
 var React = require('react');
 var NewsFeed = require('./newsFeed.jsx');
 
@@ -32,7 +32,12 @@ var NewsPage = React.createClass({
           </div>
         </div>
         <div id="news-frame" className="news-feed">
-        <NewsFeed />
+        <NewsFeed 
+            url         = "https://graph.facebook.com/wunderundfitzig/feed" 
+            fields      = "message,object_id,created_time,picture,link,type"
+            accessToken = "1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE" 
+            limit       = "10"
+        />
         </div>
         <p className="more-news-link">
           ältere News sind für alle Ewigkeit auf <a href="http://www.facebook.com/wunderundfitzig" target="_blank">facebook</a> zu finden

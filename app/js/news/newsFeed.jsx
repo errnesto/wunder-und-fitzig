@@ -3,9 +3,8 @@
  */
 
 var React = require('react');
-if (typeof window !== 'undefined') {
-	var request = require('superagent');
-}
+var NewsPost = require('./newsPost.jsx');
+var request = require('superagent');
 
 var NewsFeed = React.createClass({
 	getInitialState: function() {
