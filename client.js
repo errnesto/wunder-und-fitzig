@@ -5,99 +5,72 @@
 
 
 var React       = require('react');
-// var ReactAsync  = require('react-async');
 var ReactRouter = require('react-router-component');
 // var superagent  = require('superagent');
+
+//react componets
+var NewsPage = require('./app/js/news/NewsPage');
 
 var Pages       = ReactRouter.Pages;
 var Page        = ReactRouter.Page;
 var NotFound    = ReactRouter.NotFound;
 var Link        = ReactRouter.Link;
 
-var MainPage = React.createClass({
+var Conatiner = React.createClass({
 
-  render: function() {
+  render: function () {
     return (
-      <div className="MainPage">
-        <h1>Hello, anonymous!</h1>
-        <p><Link href="/users/doe">Login</Link></p>
-      </div>
-    );
-  }
-});
+      <html lang="de">
+      <head>
+          <meta charSet="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
-// var UserPage = React.createClass({
-//   mixins: [ReactAsync.Mixin],
+          <title>wunder &amp; fitzig | Werbeagentur Berlin</title>
 
-//   statics: {
-//     getUserInfo: function(username, cb) {
-//       superagent.get(
-//         'http://localhost:3000/api/users/' + username,
-//         function(err, res) {
-//           cb(err, res ? res.body : null);
-//         });
-//     }
-//   },
-  
-//   getInitialStateAsync: function(cb) {
-//     this.type.getUserInfo(this.props.username, cb);
-//   },
+          <link rel="stylesheet" href="assets/css/main.css" />
 
-//   componentWillReceiveProps: function(nextProps) {
-//     if (this.props.username !== nextProps.username) {
-//       this.type.getUserInfo(nextProps.username, function(err, info) {
-//         if (err) {
-//           throw err;
-//         }
-//         this.setState(info);
-//       }.bind(this));
-//     }
-//   },
+          <script src="assets/js/main.js"></script>
+      </head>
 
-//   render: function() {
-//     var otherUser = this.props.username === 'doe' ? 'ivan' : 'doe';
-//     return (
-//       <div className="UserPage">
-//         <h1>Hello, {this.state.name}!</h1>
-//         <p>
-//           Go to <Link href={"/users/" + otherUser}>/users/{otherUser}</Link>
-//         </p>
-//         <p><Link href="/">Logout</Link></p>
-//       </div>
-//     );
-//   }
-// });
+      <body>
+        <header className="blackHeader">
+        <nav className="topNavigation">
+          <ul>
+            <li className=" menu-item">
+              <a href="creatives">
+                <img className="menu-img" src="assets/img/creatives.svg" alt="creatives" />
+              </a>
+            </li>
+            <li className="active menu-item">
+              <a href="./">
+                <img className="menu-logo" src="assets/img/logo.svg" alt="wunder &amp; fitzig" />
+              </a>
+            </li>
+            
+            <li className=" menu-item">
+              <a href="stories">
+                <img className="menu-img" src="assets/img/stories.svg" alt="stories" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-// var NotFoundHandler = React.createClass({
-
-//   render: function() {
-//     return (
-//       <p>Page not found</p>
-//     );
-//   }
-// });
-
-var App = React.createClass({
-
-  render: function() {
-    return (
-      <html>
-        <head>
-          <link rel="stylesheet" href="/assets/style.css" />
-          <script src="/assets/bundle.js" />
-        </head>
-        <Pages className="App" path={this.props.path}>
-          <Page path="/" handler={MainPage} />
-        </Pages>
+        <div className="content">
+          <Pages className="App" path={this.props.path}>
+            <Page path="/" handler={NewsPage} />
+          </Pages>
+        </div>
+      </body>
       </html>
     );
   }
 });
 
-module.exports = App;
+module.exports = Conatiner;
 
 if (typeof window !== 'undefined') {
   window.onload = function() {
-    React.renderComponent(App(), document);
+    React.renderComponent(Conatiner(), document);
   }
 }
