@@ -111,7 +111,8 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 			if (post.type == 'photo' || post.type == 'link') {
 				return (
 					NewsPost({
-						key: post.object_id, 
+						key: 'key-'+index, 
+						id: post.object_id, 
 						isFirst: index === 0, 
 						createdTime: post.created_time, 
 						link: post.link, 
@@ -206,13 +207,13 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 	//format facebook date String to a nice german date
 	formatDate: function (createdTime) {
 		var date = createdTime.split('T');
-			date = date = date[0].split('-');
+		date     = date[0].split('-');
 
 		var day = date[2],
-			month = date[1] - 1,
-			year = date[0],
+		month   = date[1] - 1,
+		year    = date[0],
 
-			months = [ "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+		months = [ "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
 		return day+'. '+months[month]+' '+year;
 	},
@@ -228,7 +229,7 @@ var NewsPost = React.createClass({displayName: 'NewsPost',
 		if (this.props.type == 'photo') {
 			//get photos from facebook by object id
 			request
-				.get('https://graph.facebook.com/' + this.props.key)
+				.get('https://graph.facebook.com/' + this.props.id)
 				.query({ 
 					fields: 'images', 
 					access_token: this.props.accessToken, 

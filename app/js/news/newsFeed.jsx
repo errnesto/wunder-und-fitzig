@@ -33,8 +33,9 @@ var NewsFeed = React.createClass({
 		var NewsPosts = this.state.posts.map(function (post,index) {
 			if (post.type == 'photo' || post.type == 'link') {
 				return (
-					<NewsPost 
-						key={post.object_id}
+					<NewsPost
+						key={'key-'+index} 
+						id={post.object_id}
 						isFirst={index === 0}
 						createdTime={post.created_time} 
 						link={post.link} 

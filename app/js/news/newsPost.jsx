@@ -36,7 +36,7 @@ var NewsPost = React.createClass({
 		if (this.props.type == 'photo') {
 			//get photos from facebook by object id
 			request
-				.get('https://graph.facebook.com/' + this.props.key)
+				.get('https://graph.facebook.com/' + this.props.id)
 				.query({ 
 					fields: 'images', 
 					access_token: this.props.accessToken, 
