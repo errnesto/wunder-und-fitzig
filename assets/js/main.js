@@ -57,7 +57,7 @@ var Conatiner = React.createClass({displayName: 'Conatiner',
       ), 
 
         React.DOM.div({className: "content"}, 
-          Pages({className: "App", path: this.props.path}, 
+          Pages({className: "App", path: this.props.path || '/'}, 
             Page({path: "/", handler: NewsPage})
           )
         )
@@ -92,6 +92,7 @@ var NewsFeed = React.createClass({displayName: 'NewsFeed',
 	},
 	componentDidMount: function() {
 		//get news feed from facebook
+		console.log('hallo');
 		request
 			.get(this.props.url)
 			.query({ 
