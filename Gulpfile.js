@@ -21,7 +21,7 @@ gulp.task('server', function () {
 
 gulp.task('open-browser', function () {
 	var options = {
-		url: "http://localhost:3000",
+		url: "http://localhost:65432",
 		app: "Google Chrome Canary"
 	};
 	gulp.src("./server.js") //a file is needed to not overlook task
@@ -50,9 +50,12 @@ gulp.task('browserify', function () {
 // Watch task
 gulp.task('watch', function () {
     gulp.watch(paths.styles, ['stylus']);
+    gulp.watch(paths.react, ['browserify']);
 });
 
 //default task
 gulp.task('default', ['server','stylus','browserify','watch']);
 
 gulp.task('open', ['server','open-browser','watch']);
+
+gulp.task('build', ['server','open-browser','watch']);

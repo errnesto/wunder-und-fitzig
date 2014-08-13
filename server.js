@@ -7,9 +7,7 @@ var Page       = require('./client.jsx');
 
 
 if (app.get('env') == 'development') {
-	app.use(require('connect-livereload')({
-	  port: 35729
-	}));
+	app.use(require('connect-livereload')());
 }
 
 app.use('/assets', express.static(__dirname + '/assets'));

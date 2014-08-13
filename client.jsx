@@ -56,7 +56,7 @@ var Conatiner = React.createClass({
       </header>
 
         <div className="content">
-          <Pages className="App" path={this.props.path}>
+          <Pages className="App" path={this.props.path || '/'}>
             <Page path="/" handler={NewsPage} />
           </Pages>
         </div>

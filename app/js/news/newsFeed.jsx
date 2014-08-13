@@ -15,6 +15,7 @@ var NewsFeed = React.createClass({
 	},
 	componentDidMount: function() {
 		//get news feed from facebook
+		console.log('hallo');
 		request
 			.get(this.props.url)
 			.query({ 
@@ -34,14 +35,14 @@ var NewsFeed = React.createClass({
 			if (post.type == 'photo' || post.type == 'link') {
 				return (
 					<NewsPost
-						key={'key-'+index} 
-						id={post.object_id}
-						isFirst={index === 0}
-						createdTime={post.created_time} 
-						link={post.link} 
-						type={post.type}
-						picture={post.picture} 
-						message={post.message} 
+						key         = {'key-'+index} 
+						id          = {post.object_id}
+						isFirst     = {index === 0}
+						createdTime = {post.created_time} 
+						link        = {post.link} 
+						type        = {post.type}
+						picture     = {post.picture} 
+						message     = {post.message} 
 					/>
 				);
 			}
@@ -49,7 +50,7 @@ var NewsFeed = React.createClass({
 
 		return (
 			<span>
-				<h2 className={this.state.loadingState}>News</h2>
+				<h2 className = {this.state.loadingState}>News</h2>
 				{NewsPosts}
 			</span>
 		);
