@@ -15,7 +15,6 @@ var NewsFeed = React.createClass({
 	},
 	componentDidMount: function() {
 		//get news feed from facebook
-		console.log('hallo');
 		request
 			.get(this.props.url)
 			.query({ 
