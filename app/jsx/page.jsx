@@ -9,25 +9,20 @@ var ReactRouter = require('react-router-component');
 //react componets
 var NavLink  = require('./navLink.jsx');
 
-var NewsPage = require('./news/newsPage.jsx');
-var Stories  = require('./stories/storiesContainer.jsx');
+var NewsPage  = require('./news/newsPage.jsx');
+var Stories   = require('./stories/storiesContainer.jsx');
+var Creatives = require('./creatives/creativesPage.jsx')
 
 var Locations   = ReactRouter.Locations;
 var Location    = ReactRouter.Location;
 var NotFound    = ReactRouter.NotFound;
-
-var Test = React.createClass({
-  render: function () {
-    return <h1>test</h1>;
-  }
-});
 
 var Conatiner = React.createClass({
   mixins: [ReactRouter.NavigatableMixin],
 
   getInitialState: function () {
     return {
-      currentPage: '/'
+      currentPage: this.props.path || this.getPath()
     };
   },
 
@@ -126,10 +121,10 @@ var Conatiner = React.createClass({
               path    = "/stories" 
               handler = {Stories} />
             <Location 
-              path    = "creatives" 
-              handler = {Test} />
+              path    = "/creatives" 
+              handler = {Creatives} />
             <NotFound
-              handler = {Test} />
+              handler = {NewsPage} />
           </Locations>
         </div>
       </body>

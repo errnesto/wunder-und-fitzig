@@ -58,6 +58,7 @@ var Storie = React.createClass({
 						getSlideDirection = {this.props.getSlideDirection}
 						isCover           = {currentItem.is_cover} 
 						background        = {currentItem.background} 
+						backgroundSize    = {currentItem.backgroundSize}
 						cover             = {currentItem.cover}
 					/>
 				</ReactTransitionGroup>

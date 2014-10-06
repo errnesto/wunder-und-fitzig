@@ -387,6 +387,7 @@ a:hover {
 .inner-storie {
   margin: 0 auto;
   max-width: 960px;
+  min-height: 100%;
   padding: 0 40px;
 }
 @media all and (max-width: 600px) {
@@ -545,10 +546,10 @@ a:hover {
     margin-bottom: 20px;
   }
 }
-.news-feed .fb-post a {
+.news-feed .fb-post .fb-link {
   display: block;
 }
-.news-feed .fb-post a:hover {
+.news-feed .fb-post .fb-link:hover {
   border-bottom: 0;
 }
 .news-feed .fb-date {
@@ -678,7 +679,7 @@ a:hover {
 .storie .storie-text-wrapper .storie-text {
   display: block;
   background: url("../img/bg.jpg") #fff;
-  border-radius: 2px;
+  border-radius: 0;
   box-shadow: 0 0 5px -2px #000;
   margin: 0;
   padding: 20px 40px;
@@ -691,6 +692,7 @@ a:hover {
   height: 100%;
   transition: left 1.2s ease-in-out;
   background-size: cover;
+  background-position: center;
 }
 .storie .storie-item.left {
   left: -100%;
@@ -716,4 +718,54 @@ a:hover {
 .inner-storie {
   position: relative;
   height: 100%;
+}
+.creatives-page {
+  height: 100%;
+}
+.right-person,
+.left-person,
+.center-person {
+  position: absolute;
+  height: 100%;
+  width: 52%;
+  background-repeat: no-repeat;
+  margin-top: -78px;
+}
+.right-person {
+  background-position: left 68px;
+  right: 0;
+}
+.left-person {
+  background-position: right 68px;
+  left: 0;
+}
+.center-person {
+  width: 100%;
+  height: 64%;
+  left: 0;
+  background-position: center top;
+  margin-top: 0;
+  padding-top: 0;
+}
+.text,
+.right-text,
+.center-text {
+  width: 420px;
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+.text .paragraphs,
+.right-text .paragraphs,
+.center-text .paragraphs {
+  display: block;
+  height: 70%;
+  overflow: auto;
+}
+.right-text {
+  margin-left: 55%;
+}
+.center-text {
+  width: 100%;
+  height: 36%;
 }

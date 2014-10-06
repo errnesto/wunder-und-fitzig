@@ -47,7 +47,10 @@ var StorieItem = React.createClass({
 		var CoverImg;
 
 		if (this.props.isCover) {
-			style    = {'background': this.props.background};
+			style    = {
+				'background':      this.props.background,
+				'background-size': this.props.backgroundSize
+			};
 			CoverImg = (
 				<img 
 					className = "cover-image" 
