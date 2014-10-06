@@ -13,13 +13,16 @@ if (app.get('env') == 'development') {
 
 app.use('/assets', express.static(__dirname + '/assets'));
 
-var renderApp = function (req, res, next) {
-	if (req.url != '/assets') {
-		var path   = url.parse(req.url).pathname;
+var renderApp = function (req, res, next) {	
+	var path   = url.parse(req.url).pathname;
+
+	if (path.indexOf('/assets') < 0) {
 		var page   = Page({path: path});
 	  var markup = React.renderComponentToString(page);
 	  
 	  res.send('<!doctype html>\n' + markup);
+	} else {
+		res.status(404).send('Not found');
 	}
 }
 
