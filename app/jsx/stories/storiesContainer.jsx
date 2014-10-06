@@ -38,12 +38,27 @@ var StoriesContainer = React.createClass({
 			.get('/assets/data/stories.json')
 
 			.end(function(res){
+				var stories = res.body;
+				this.shuffle(stories);
+
 				this.setState({
-					stories: res.body,
+					stories: stories,
 				});
 			}.bind(this));
 
 		window.addEventListener('keydown', this.handleKey);
+	},
+
+	// Fisher-Yates shuffle algorithm
+	// from: http://stackoverflow.com/a/12646864/3181404
+	shuffle: function (array) {
+		for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  	}
+  	return array;
 	},
 
 	// event handlers:
