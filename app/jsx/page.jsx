@@ -58,10 +58,10 @@ var Conatiner = React.createClass({
 
           <link 
             rel  = "stylesheet" 
-            href = "assets/css/main.css" />
+            href = "/assets/css/main.css" />
 
           <script 
-            src = "assets/js/main.js" />
+            src = "/assets/js/main.js" />
       </head>
 
       <body>
