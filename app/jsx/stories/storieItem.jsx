@@ -42,7 +42,7 @@ var StorieItem = React.createClass({
 			'invalid-left'  : this.props.invalid == 'prev'
 		});
 		var style      = {
-			'background-image': 'url(assets/img/stories/'+this.props.background+')'
+			'background-image': 'url(/assets/img/stories/'+this.props.background+')'
 		};
 		var CoverImg;
 
@@ -54,7 +54,7 @@ var StorieItem = React.createClass({
 			CoverImg = (
 				<img 
 					className = "cover-image" 
-					src       = {'assets/img/stories/'+this.props.cover} />
+					src       = {'/assets/img/stories/'+this.props.cover} />
 			);
 		}
 

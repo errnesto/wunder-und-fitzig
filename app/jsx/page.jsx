@@ -77,7 +77,7 @@ var Conatiner = React.createClass({
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
-                  src       = "assets/img/creatives.svg" 
+                  src       = "/assets/img/creatives.svg" 
                   alt       = "creatives" />
               </NavLink>
             </li>
@@ -88,7 +88,7 @@ var Conatiner = React.createClass({
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-logo" 
-                  src       = "assets/img/logo.svg" 
+                  src       = "/assets/img/logo.svg" 
                   alt       = "wunder &amp; fitzig" />
               </NavLink>
             </li>
@@ -100,7 +100,7 @@ var Conatiner = React.createClass({
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
-                  src       = "assets/img/stories.svg" 
+                  src       = "/assets/img/stories.svg" 
                   alt       = "stories" />
               </NavLink>
             </li>
@@ -118,10 +118,10 @@ var Conatiner = React.createClass({
               path    = "/" 
               handler = {NewsPage} />
             <Location 
-              path    = "/stories" 
+              path    = "/stories*" 
               handler = {Stories} />
             <Location 
-              path    = "/creatives" 
+              path    = "/creatives*" 
               handler = {Creatives} />
             <NotFound
               handler = {NewsPage} />

@@ -32,7 +32,7 @@
 			{
 				"is_cover": true,
 				"cover": "Riptide/riptide_logo.svg",
-				"background": "url(assets/img/stories/Riptide/bg.jpg)",
+				"background": "url(/assets/img/stories/Riptide/bg.jpg)",
 				"text": "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite. <a target=\"_blank\" href=\"http://www.riptide-filmmakers.de/\">www.riptide-filmmakers.de</a>"
 			},
 			{
@@ -48,7 +48,7 @@
 			{
 				"is_cover": true,
 				"cover": "HamburgGolightly/Hamburg-Golightly_Logo.svg",
-				"background": "url(assets/img/stories/HamburgGolightly/bg.jpg)",
+				"background": "url(/assets/img/stories/HamburgGolightly/bg.jpg)",
 				"backgroundSize": "cover",
 				"text": "Hamburg Golightly stylen und stagen Wohnungen. Was genau das ist erzählt die von uns entwickelte Webseite. <a target=\"_blank\" href=\"http://www.hamburg-golightly.de/\">www.hamburg-golightly.de</a>"
 			},
