@@ -3,6 +3,13 @@
 */
 'use strict';
 
+var React   = require('react/addons');
+var request = require('superagent');
+
+var Storie = require('./storie.jsx');
+
+var ReactTransitionGroup = React.addons.TransitionGroup;
+
 var StoriesContainer = React.createClass({
 	getInitialState: function() {
 		return {
@@ -63,6 +70,7 @@ var StoriesContainer = React.createClass({
 		}
 
 	},
+
 	handleKey: function (e) {
 		switch (e.keyCode) {
 			case 39:
@@ -79,6 +87,7 @@ var StoriesContainer = React.createClass({
 				break;
 		}
 	},
+
 	handleLink: function (e) {
 		e.preventDefault();
 		var href = e.target.getAttribute('href');
@@ -117,6 +126,7 @@ var StoriesContainer = React.createClass({
 		}
 		return false;
 	},
+
 	getSlideDirection: function () {
 		var currentItem = this.state.currentItems[this.state.currentStorie],
 		recentItem      = this.state.recentItems[this.state.currentStorie];
@@ -152,6 +162,7 @@ var StoriesContainer = React.createClass({
 		}
 		return false;
 	},
+
 	getSwitchDirection: function () {
 		var directions = {next: 'down', prev: 'up'};
 		if (this.state.recentStorie > this.state.currentStorie) {
@@ -181,6 +192,7 @@ var StoriesContainer = React.createClass({
 			}
 		}.bind(this),1250); //animation duration from css + 50ms safety
 	},
+
 	setInvalid: function (direction) {
 		this.setState({invalid: direction});
 		window.setTimeout(function(){
@@ -219,3 +231,5 @@ var StoriesContainer = React.createClass({
 		);
 	}
 });
+
+module.exports = StoriesContainer;

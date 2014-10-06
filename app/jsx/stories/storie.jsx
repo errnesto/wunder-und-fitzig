@@ -1,7 +1,12 @@
 /**
  * @jsx React.DOM
  */
- 'use strict';
+'use strict';
+
+var React = require('react');
+
+var StorieItem = require('./storieItem.jsx');
+var helpers    = require('../mixins.jsx');
 
 var Storie = React.createClass({
 	mixins: [helpers],
@@ -85,3 +90,5 @@ var Storie = React.createClass({
 		);
 	}
 });
+
+module.exports = Storie;

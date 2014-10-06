@@ -3,6 +3,10 @@
 */
 'use strict';
 
+var React = require('react');
+
+var helpers    = require('../mixins.jsx');
+
 var StorieItem = React.createClass({
 	mixins: [helpers],
 	//animations
@@ -60,3 +64,4 @@ var StorieItem = React.createClass({
 	}
 });
 
+module.exports = StorieItem;

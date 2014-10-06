@@ -3,9 +3,10 @@
  */
  'use strict';
 
-var React = require('react');
+var React    = require('react');
+
 var NewsPost = require('./newsPost.jsx');
-var request = require('superagent');
+var request  = require('superagent');
 
 var NewsFeed = React.createClass({
 	getInitialState: function() {

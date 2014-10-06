@@ -8,7 +8,9 @@ var ReactRouter = require('react-router-component');
 
 //react componets
 var NavLink  = require('./navLink.jsx');
+
 var NewsPage = require('./news/newsPage.jsx');
+var Stories  = require('./stories/storiesContainer.jsx');
 
 var Locations   = ReactRouter.Locations;
 var Location    = ReactRouter.Location;
@@ -19,13 +21,6 @@ var Test = React.createClass({
     return <h1>test</h1>;
   }
 });
-
-var Test2 = React.createClass({
-  render: function () {
-    return <h1>test2</h1>;
-  }
-});
-
 
 var Conatiner = React.createClass({
   mixins: [ReactRouter.NavigatableMixin],
@@ -128,13 +123,13 @@ var Conatiner = React.createClass({
               path    = "/" 
               handler = {NewsPage} />
             <Location 
-              path    = "stories" 
-              handler = {Test} />
+              path    = "/stories" 
+              handler = {Stories} />
             <Location 
               path    = "creatives" 
               handler = {Test} />
             <NotFound
-              handler = {Test2} />
+              handler = {Test} />
           </Locations>
         </div>
       </body>
