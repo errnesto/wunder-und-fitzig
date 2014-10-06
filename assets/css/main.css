@@ -431,6 +431,7 @@ a:hover {
   display: block;
   color: #fff;
   height: 55px;
+  position: relative;
 }
 .topNavigation .menu-item a:hover {
   border: 0;
@@ -453,11 +454,17 @@ a:hover {
     height: 31px;
   }
 }
-.topNavigation .menu-item.active {
-  background-image: url("../img/currentNav.svg");
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 24px 16px;
+.topNavigation .menu-item .active:after {
+  content: ' ';
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: -13px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 13px solid #111;
 }
 .neugierig {
   text-align: center;

@@ -40,8 +40,15 @@ gulp.task('stylus', function () {
 });
 
 gulp.task('browserify', function () {
-    browserify('./client.jsx')
-    .bundle()
+    var b = browserify({
+        debug: true,
+    });
+    b.add('./client.js');
+    b.plugin('minifyify', {map: '/assets/bundle.map.json', output: './assets/bundle.map.json'});
+    plumber()
+    .pipe(
+        b.bundle()
+    )
     .pipe(source('main.js'))
     .pipe(gulp.dest('./assets/js/'))
     .pipe(livereload());
