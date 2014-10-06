@@ -20,9 +20,9 @@ var NewsFeed = React.createClass({
 		request
 			.get(this.props.url)
 			.query({ 
-				fields: this.props.fields, 
+				fields:       this.props.fields, 
 				access_token: this.props.accessToken, 
-				limit: this.props.limit 
+				limit:        this.props.limit 
 			})
 			.end(function(res){
 				this.setState({

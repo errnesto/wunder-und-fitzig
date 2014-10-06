@@ -1,0 +1,56 @@
+[
+	{
+		"customer": "Sebastian Schmidt",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "SebastianSchmidt/sebastianSchmidtLogo.svg",
+				"background": "#46462A",
+				"text": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln. <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest.Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianPage.jpg",
+				"text": "Der look der Seite ist geprägt von olivgrünem Hintergrund für Photografie und orangenem Hintergrund für Videos die auch zu Sebastians Repertoire gehören. <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianGeschaeftsausstattung.png",
+				"text": "Nach Abschluss der Arbeiten an der Webseite haben wir uns um die Geschäftsaussttung gekümmert."
+			}
+		]
+
+	},
+	{
+		"customer": "Kund 2",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "SebastianSchmidt/sebastianSchmidtLogo.svg",
+				"background": "#000",
+				"text": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln. <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest.Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianPage.jpg",
+				"text": "Der look der Seite ist geprägt von olivgrünem Hintergrund für Photografie und orangenem Hintergrund für Videos die auch zu Sebastians Repertoire gehören. <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianGeschaeftsausstattung.png",
+				"text": "Nach Abschluss der Arbeiten an der Webseite haben wir uns um die Geschäftsaussttung gekümmert."
+			}
+		]
+
+	}
+]

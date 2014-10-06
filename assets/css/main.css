@@ -380,6 +380,9 @@ a:hover {
   position: absolute;
   padding-top: 68px;
 }
+.App {
+  height: 100%;
+}
 .inner-content,
 .inner-storie {
   margin: 0 auto;

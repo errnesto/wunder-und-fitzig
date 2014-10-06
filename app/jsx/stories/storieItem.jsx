@@ -3,9 +3,11 @@
 */
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 
 var helpers    = require('../mixins.jsx');
+
+var classSet = React.addons.classSet;
 
 var StorieItem = React.createClass({
 	mixins: [helpers],
@@ -34,7 +36,6 @@ var StorieItem = React.createClass({
 
 
 	render: function() {
-		console.log(this.props.invalid);
 		var classNames = classSet({
 			'storie-item'   : true,
 			'active'        : true,

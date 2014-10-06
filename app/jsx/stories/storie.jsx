@@ -3,10 +3,14 @@
  */
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 
 var StorieItem = require('./storieItem.jsx');
 var helpers    = require('../mixins.jsx');
+
+var classSet                = React.addons.classSet;
+var ReactTransitionGroup    = React.addons.TransitionGroup;
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Storie = React.createClass({
 	mixins: [helpers],
@@ -36,7 +40,6 @@ var Storie = React.createClass({
 
 	//render
 	render: function() {
-		console.log(this.props.invalid);
 		var classNames = classSet({
 			'storie'       : true,
 			'active'       : true,

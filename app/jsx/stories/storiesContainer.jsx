@@ -35,7 +35,7 @@ var StoriesContainer = React.createClass({
 	componentDidMount: function() {
 		//get stories from Server
 		request
-			.get(this.props.url)
+			.get('/assets/data/stories.json')
 
 			.end(function(res){
 				this.setState({
