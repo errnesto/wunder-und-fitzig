@@ -73,7 +73,7 @@ var Conatiner = React.createClass({
             <li 
               className = " menu-item">
               <NavLink 
-                href        = "/creatives"
+                href        = "/creatives/"
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
@@ -96,7 +96,7 @@ var Conatiner = React.createClass({
             <li 
               className = " menu-item">
               <NavLink 
-                href        = "/stories"
+                href        = "/stories/"
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
