@@ -54,8 +54,9 @@
 			},
 			{
 				"is_cover": false,
-				"background": "Riptide/riptide-page.jpg",
-				"text": "Die riptide Seite begrüßt den Besucher direkt mit einem vollbild Film. Auf der Seite kann man dann ansehen was die filmmakers machen: Filme. Inhalte werden dynamisch Vimeo ausgelesen. <a target=\"_blank\" href=\"http://www.riptide-filmmakers.de/\">www.riptide-filmmakers.de</a>"
+				"background": "HamburgGolightly/print.jpg",
+				"backgroundSize": "cover",
+				"text": "Für Hamburg Golightly haben wir das Logo das CD und verschiedene Printproduckte gestaltet."
 			}
 		]
 	}
