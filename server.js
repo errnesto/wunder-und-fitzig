@@ -14,11 +14,13 @@ if (app.get('env') == 'development') {
 app.use('/assets', express.static(__dirname + '/assets'));
 
 var renderApp = function (req, res, next) {
-	var path   = url.parse(req.url).pathname;
-	var page   = Page({path: path});
-  var markup = React.renderComponentToString(page);
-  
-  res.send('<!doctype html>\n' + markup);
+	if (req.url != '/assets') {
+		var path   = url.parse(req.url).pathname;
+		var page   = Page({path: path});
+	  var markup = React.renderComponentToString(page);
+	  
+	  res.send('<!doctype html>\n' + markup);
+	}
 }
 
 app.use(favicon(__dirname + '/assets/favicon.ico'));
