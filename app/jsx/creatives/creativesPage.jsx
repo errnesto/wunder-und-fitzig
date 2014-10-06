@@ -16,7 +16,7 @@ var NewsPage = React.createClass({
 					id        = "hrWunder">
 					<div 
 						className = "right-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/hrWunder.jpg)'}} />
+						style     = {{backgroundImage: 'url(/assets/img/people/hrWunder.jpg)'}} />
 					<div 
 						className = "text">
 						<h2>
@@ -42,7 +42,7 @@ var NewsPage = React.createClass({
 					id        = "frFitzig">
 					<div 
 						className = "left-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/frFitzig.jpg)'}} />
+						style     = {{backgroundImage: 'url(/assets/img/people/frFitzig.jpg)'}} />
 					<div 
 						className = "right-text">
 						<h2>
@@ -68,7 +68,7 @@ var NewsPage = React.createClass({
 					id        = "hrReich">
 					<div 
 						className = "right-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/hrReich.jpg)'}} />
+						style     = {{backgroundImage: 'url(/assets/img/people/hrReich.jpg)'}} />
 					<div 
 						className = "text">
 						<h2>
@@ -94,7 +94,7 @@ var NewsPage = React.createClass({
 					id        = "frSpringmann">
 					<div 
 						className = "left-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/frSpringmann.jpg)'}} />
+						style     = {{backgroundImage: 'url(/assets/img/people/frSpringmann.jpg)'}} />
 					<div 
 						className = "right-text">
 						<h2>
@@ -140,7 +140,7 @@ var NewsPage = React.createClass({
 					</div>
 					<div 
 						className = "center-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/manuMartina.jpg)'}} />
+						style     = {{backgroundImage: 'url(/assets/img/people/manuMartina.jpg)'}} />
 				</div>
 
 			</section>
