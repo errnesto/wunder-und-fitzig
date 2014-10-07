@@ -1,10 +1,11 @@
 .stories-container
-	height   100%
-	position relative
-	overflow hidden
+	height           100%
+	position         relative
+	overflow         hidden
+	background-color grey      
 
 .invalid
-	transition top 0.5s, left 0.5s
+	transition transform 0.2s
 
 .storie
 	position   absolute
@@ -13,20 +14,31 @@
 	height     100%
 	min-height 650px
 	overflow   hidden
-	transition top 1.2s
+	transition transform 1.2s
 	&.up
-		top -100%
+		transform translateY(-200%) !important
 	&.active
-		top 0%
+		transform translateY(0%)
 	&.down
-		top 100%
+		transform translateY(200%) !important
 
 	&.invalid-up
 		@extend .invalid
-		top 100px
+		transform translateY(100px)
+		@media mobile
+			transform translateY(0)
+
 	&.invalid-down
 		@extend .invalid
-		top -100px
+		transform translateY(-100px)
+		@media mobile
+			transform translateY(0)
+
+	@media mobile
+		min-height 0
+		height     60%
+		overflow   visible
+		transition transform 1s 0.1s
 
 	.storie-title
 		font-size   2em
@@ -50,10 +62,11 @@
 		&.next 
 			background-position left
 			float right
-		@media small-mobile
-			margin-top 80px
-		@media small-mobile
-			margin-top 0px
+		@media mobile
+			margin-top      60px
+			width           20px
+			height          150px
+			background-size 40px 
 
 	.storie-text-wrapper
 		position absolute
@@ -62,10 +75,9 @@
 		width    100%
 		padding  0 page-padding
 		@media mobile
-			padding 0 20px
-			top     400px
-		@media small-mobile
-			top 300px
+			top     100%
+			height  70%
+			padding 0
 
 		.storie-text
 			display       block
@@ -76,32 +88,32 @@
 			padding       20px 40px
 			width         100%
 			@media mobile
-				padding       20px
+				font-size  1.2em
+				padding    20px
+				box-shadow none
+				height     100%
 
 	.storie-item
 		position            absolute
 		top                 0
 		width               100%
 		height              100%
-		transition          left 1.2s ease-in-out
+		transition          transform 1.2s
 		background-size     cover
-		background-position center
-		@media small-mobile
-			background-size     150%      
-			background-repeat   no-repeat 
-			background-position top       
-			background-color    #000
+		background-position center 
 
 		&.left
-			left -100%
+			transform translateX(-100%) !important
 		&.active
-			left 0%
+			transform translateX(0%)
 		&.right
-			left 100%
+			transform translateX(100%) !important
 
 		&.invalid-left
 			@extend .invalid
-			left 100px
+			transform translateX(100px)
+			@media mobile
+				transform translateX(0)
 
 		
 	.cover-image
@@ -109,12 +121,11 @@
 		display block
 		margin  200px auto
 		@media mobile
-			height 200px
-			margin 150px auto
-		@media small-mobile
-			height auto
-			width  180px
-			margin 100px auto
+			position relative
+			top      33%
+			height   50%
+			margin   0 auto
+
 
 .invalidSlide
 	transition left 0.5s

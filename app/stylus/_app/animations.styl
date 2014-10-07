@@ -23,27 +23,33 @@
 	100%
 		transform rotateX(0deg)
 
-//animation helper
+// keep just to not break anything
 animate()
-	-webkit-animation	arguments
-	-moz-animation		arguments
-	-o-animation		  arguments
-	animation			    arguments
-
+	animation	arguments
 
 //react animations
 
 .flip-enter
 	transform  rotateX(90deg)
 	transition transform .2s 1s ease-out
+	@media mobile
+		transition opacity .1s
+		opacity 0
 
 .flip-enter.flip-enter-active
 	transform rotateX(0)
+	@media mobile
+		opacity    1
 
 
 .flip-leave
 	transform  rotateX(0)
 	transition transform .2s .8s ease-in
+	@media mobile
+		transition opacity .1s .1s
+		opacity    1
 
 .flip-leave.flip-leave-active 
 	transform rotateX(90deg)
+	@media mobile
+		opacity 0

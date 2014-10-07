@@ -90,21 +90,31 @@ var StoriesContainer = React.createClass({
 	},
 
 	hanldeTouchStart: function (e) {
+		// e.preventDefault();
 		this.touchStartX = e.touches[0].clientX;
 		this.touchStartY = e.touches[0].clientY;
 	},
 
 	handleTouchMove: function (e) {
-		this.setState({
-			touchOffset: {
-				x: this.state.touchOffset.x + e.touches[0].clientX - this.touchStartX,
-				y: this.state.touchOffset.y + e.touches[0].clientY - this.touchStartY
-			}
-		});
+		e.preventDefault();
+		var xOffset = -(this.touchStartX - e.touches[0].clientX);
+		var yOffset = -(this.touchStartY - e.touches[0].clientY);
+
+		if (Math.abs(xOffset) > Math.abs(yOffset)) {
+			this.setState({
+				touchOffset: { x: xOffset }
+			});
+		} else {
+			this.setState({
+				touchOffset: { y: yOffset }
+			});
+		}
+		
 	},
 
 	handleTouchEnd: function (e) {
-		var THRESHOLD = 50;
+		// e.preventDefault();
+		var THRESHOLD = 70;
 		var yOffset = this.state.touchOffset.y;
 		var xOffset = this.state.touchOffset.x;
 
@@ -122,8 +132,9 @@ var StoriesContainer = React.createClass({
 				this.slide('prev');
 			} else if (xOffset < -THRESHOLD) {
 				this.slide('next');
-			}
+			} 
 		});
+
 	},
 
 	handleKey: function (e) {
