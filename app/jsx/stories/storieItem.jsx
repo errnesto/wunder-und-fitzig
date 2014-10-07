@@ -42,14 +42,16 @@ var StorieItem = React.createClass({
 			'invalid-left'  : this.props.invalid == 'prev'
 		});
 		var style      = {
-			'background-image': 'url(/assets/img/stories/'+this.props.background+')'
+			'background-image': 'url(/assets/img/stories/'+this.props.background+')',
+			'transform':        'translateX(' + this.props.translateX + 'px)'
 		};
 		var CoverImg;
 
 		if (this.props.isCover) {
 			style    = {
 				'background':      this.props.background,
-				'background-size': this.props.backgroundSize
+				'background-size': this.props.backgroundSize,
+				'transform':       'translateX(' + this.props.translateX + 'px)'
 			};
 			CoverImg = (
 				<img 

@@ -27,6 +27,7 @@ var Conatiner = React.createClass({
   },
 
   handleNavigation: function () {
+    window.scrollTo(0,0);
     this.setState({
       currentPage: this.getPath()
     });

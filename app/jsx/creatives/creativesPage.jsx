@@ -42,7 +42,7 @@ var NewsPage = React.createClass({
 					id        = "frFitzig">
 					<div 
 						className = "left-person" 
-						style     = {{backgroundImage: 'url(assets/img/people/frFitzig.jpg)'}} />
+						style     = {{backgroundImage: 'url(assets/img/people/frFitzig.jpg)', left: '-10%'}} />
 					<div 
 						className = "right-text">
 						<h2>

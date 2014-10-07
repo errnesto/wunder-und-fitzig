@@ -50,7 +50,8 @@ var Storie = React.createClass({
 
 		return (
 			<div 
-				className = {classNames}>
+				className = {classNames}
+				style     = {{transform: 'translateY(' + this.props.translate.y + 'px)'}}>
 				<ReactTransitionGroup>
 					<StorieItem 
 						key               = {this.props.customer+'-'+this.props.currentItem} 
@@ -60,6 +61,7 @@ var Storie = React.createClass({
 						background        = {currentItem.background} 
 						backgroundSize    = {currentItem.backgroundSize}
 						cover             = {currentItem.cover}
+						translateX        = {this.props.translate.x}
 					/>
 				</ReactTransitionGroup>
 

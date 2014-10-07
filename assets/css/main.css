@@ -355,7 +355,7 @@ body {
   font-weight: 300;
   line-height: 1.3em;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   body {
     font-size: 12px;
   }
@@ -380,6 +380,11 @@ a:hover {
   position: absolute;
   padding-top: 68px;
 }
+@media all and (max-width: 700px) {
+  .content {
+    padding-top: 50px;
+  }
+}
 .App {
   height: 100%;
 }
@@ -387,10 +392,9 @@ a:hover {
 .inner-storie {
   margin: 0 auto;
   max-width: 960px;
-  min-height: 100%;
   padding: 0 40px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .inner-content,
   .inner-storie,
 .inner-storie {
@@ -406,7 +410,7 @@ a:hover {
   width: 100%;
   z-index: 200;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .blackHeader {
     height: 50px;
   }
@@ -426,9 +430,9 @@ a:hover {
   height: 68px;
   text-align: center;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .topNavigation .menu-item {
-    height: 50px;
+    height: 37px;
   }
 }
 .topNavigation .menu-item a {
@@ -440,11 +444,16 @@ a:hover {
 .topNavigation .menu-item a:hover {
   border: 0;
 }
+@media all and (max-width: 700px) {
+  .topNavigation .menu-item a {
+    height: 37px;
+  }
+}
 .topNavigation .menu-item .menu-img {
   vertical-align: bottom;
   margin-bottom: -1px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .topNavigation .menu-item .menu-img {
     height: 11px;
   }
@@ -452,7 +461,7 @@ a:hover {
 .topNavigation .menu-item .menu-logo {
   margin-left: -13px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .topNavigation .menu-item .menu-logo {
     margin-left: -8px;
     height: 31px;
@@ -480,7 +489,7 @@ a:hover {
   font-weight: normal;
   font-weight: 600;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .neugierig {
     margin-top: 30px;
   }
@@ -491,7 +500,7 @@ a:hover {
   padding: 20px 0;
   border-top: 1px dotted;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .contact {
     padding-top: 7px;
     margin-bottom: 25px;
@@ -504,7 +513,7 @@ a:hover {
 }
 .contact .wrapper p {
   float: left;
-  width: 10em;
+  width: 9.6em;
   margin: 0 auto;
   vertical-align: top;
 }
@@ -541,7 +550,7 @@ a:hover {
   -o-animation: fadeIn 3s;
   animation: fadeIn 3s;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .news-feed .fb-post {
     margin-bottom: 20px;
   }
@@ -570,7 +579,7 @@ a:hover {
 .news-feed .fb-message {
   margin-top: 10px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .news-feed .fb-message {
     margin-top: 3px;
   }
@@ -580,7 +589,7 @@ a:hover {
   padding-top: 20px;
   margin-top: 80px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .more-news-link {
     margin-top: 30px;
     padding-top: 10px;
@@ -598,7 +607,7 @@ a:hover {
   color: #777;
   text-align: center;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .impressum {
     margin-top: 0;
   }
@@ -664,6 +673,16 @@ a:hover {
   background-position: left;
   float: right;
 }
+@media all and (max-width: 320px) {
+  .storie .arrow {
+    margin-top: 80px;
+  }
+}
+@media all and (max-width: 320px) {
+  .storie .arrow {
+    margin-top: 0px;
+  }
+}
 .storie .storie-text-wrapper {
   position: absolute;
   top: 560px;
@@ -671,9 +690,15 @@ a:hover {
   width: 100%;
   padding: 0 40px;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
   .storie .storie-text-wrapper {
     padding: 0 20px;
+    top: 400px;
+  }
+}
+@media all and (max-width: 320px) {
+  .storie .storie-text-wrapper {
+    top: 300px;
   }
 }
 .storie .storie-text-wrapper .storie-text {
@@ -685,6 +710,11 @@ a:hover {
   padding: 20px 40px;
   width: 100%;
 }
+@media all and (max-width: 700px) {
+  .storie .storie-text-wrapper .storie-text {
+    padding: 20px;
+  }
+}
 .storie .storie-item {
   position: absolute;
   top: 0;
@@ -693,6 +723,14 @@ a:hover {
   transition: left 1.2s ease-in-out;
   background-size: cover;
   background-position: center;
+}
+@media all and (max-width: 320px) {
+  .storie .storie-item {
+    background-size: 150%;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: #000;
+  }
 }
 .storie .storie-item.left {
   left: -100%;
@@ -711,6 +749,19 @@ a:hover {
   display: block;
   margin: 200px auto;
 }
+@media all and (max-width: 700px) {
+  .storie .cover-image {
+    height: 200px;
+    margin: 150px auto;
+  }
+}
+@media all and (max-width: 320px) {
+  .storie .cover-image {
+    height: auto;
+    width: 180px;
+    margin: 100px auto;
+  }
+}
 .invalidSlide {
   transition: left 0.5s;
   left: 200px;
@@ -721,39 +772,115 @@ a:hover {
 }
 .creatives-page {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+.creatives-page .inner-content {
+  position: relative;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #111;
+  min-height: 100%;
+}
+.creatives-page .inner-content:last-child {
+  margin-bottom: 0;
+  border-bottom: 0;
+  min-height: 0;
+}
+@media all and (max-width: 320px) {
+  .creatives-page .inner-content {
+    position: relative;
+    height: 400px;
+    margin-bottom: 30px;
+  }
 }
 .right-person,
 .left-person,
 .center-person {
   position: absolute;
   height: 100%;
-  width: 52%;
+  width: 70%;
   background-repeat: no-repeat;
   margin-top: -78px;
+  bottom: 0;
+}
+@media all and (max-width: 700px) {
+  .right-person,
+  .left-person,
+  .center-person {
+    background-size: 140%;
+  }
+}
+@media all and (max-width: 320px) {
+  .right-person,
+  .left-person,
+  .center-person {
+    background-size: 120%;
+    width: 55% !important;
+  }
 }
 .right-person {
-  background-position: left 68px;
-  right: 0;
+  background-position: -42px 68px;
+  right: -20%;
+}
+@media all and (max-width: 700px) {
+  .right-person {
+    background-position: left 50px;
+    right: 0;
+  }
+}
+@media all and (max-width: 320px) {
+  .right-person {
+    background-position: left bottom;
+  }
 }
 .left-person {
   background-position: right 68px;
-  left: 0;
+  left: -20%;
+}
+@media all and (max-width: 700px) {
+  .left-person {
+    background-position: right 50px;
+    left: 0;
+  }
+}
+@media all and (max-width: 320px) {
+  .left-person {
+    background-position: right bottom;
+  }
 }
 .center-person {
-  width: 100%;
-  height: 64%;
+  position: relative;
+  width: 100% !important;
+  height: 650px;
   left: 0;
   background-position: center top;
   margin-top: 0;
   padding-top: 0;
 }
+@media all and (max-width: 700px) {
+  .center-person {
+    background-size: 100%;
+    height: 400px;
+  }
+}
+@media all and (max-width: 320px) {
+  .center-person {
+    height: 250px;
+  }
+}
 .text,
 .right-text,
 .center-text {
-  width: 420px;
+  width: 50%;
   position: relative;
   z-index: 2;
-  height: 100%;
+}
+@media all and (max-width: 700px) {
+  .text,
+  .right-text,
+  .center-text {
+    width: 48%;
+  }
 }
 .text .paragraphs,
 .right-text .paragraphs,
@@ -767,5 +894,4 @@ a:hover {
 }
 .center-text {
   width: 100%;
-  height: 36%;
 }

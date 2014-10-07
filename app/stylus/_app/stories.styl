@@ -50,6 +50,10 @@
 		&.next 
 			background-position left
 			float right
+		@media small-mobile
+			margin-top 80px
+		@media small-mobile
+			margin-top 0px
 
 	.storie-text-wrapper
 		position absolute
@@ -59,6 +63,9 @@
 		padding  0 page-padding
 		@media mobile
 			padding 0 20px
+			top     400px
+		@media small-mobile
+			top 300px
 
 		.storie-text
 			display       block
@@ -68,6 +75,8 @@
 			margin        0
 			padding       20px 40px
 			width         100%
+			@media mobile
+				padding       20px
 
 	.storie-item
 		position            absolute
@@ -77,6 +86,12 @@
 		transition          left 1.2s ease-in-out
 		background-size     cover
 		background-position center
+		@media small-mobile
+			background-size     150%      
+			background-repeat   no-repeat 
+			background-position top       
+			background-color    #000
+
 		&.left
 			left -100%
 		&.active
@@ -93,6 +108,13 @@
 		height  300px
 		display block
 		margin  200px auto
+		@media mobile
+			height 200px
+			margin 150px auto
+		@media small-mobile
+			height auto
+			width  180px
+			margin 100px auto
 
 .invalidSlide
 	transition left 0.5s

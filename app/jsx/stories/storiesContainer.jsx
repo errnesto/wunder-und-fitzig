@@ -20,7 +20,11 @@ var StoriesContainer = React.createClass({
 			currentItems:  [],
 			recentItems:   [],
 
-			invalid:       false
+			invalid:       false,
+			touchOffset:   {
+				x: 0, 
+				y: 0
+			}
 		};
 	},
 
@@ -83,7 +87,43 @@ var StoriesContainer = React.createClass({
 			this.slide('prev');
 			this.xScrollOffset = 0;
 		}
+	},
 
+	hanldeTouchStart: function (e) {
+		this.touchStartX = e.touches[0].clientX;
+		this.touchStartY = e.touches[0].clientY;
+	},
+
+	handleTouchMove: function (e) {
+		this.setState({
+			touchOffset: {
+				x: this.state.touchOffset.x + e.touches[0].clientX - this.touchStartX,
+				y: this.state.touchOffset.y + e.touches[0].clientY - this.touchStartY
+			}
+		});
+	},
+
+	handleTouchEnd: function (e) {
+		var THRESHOLD = 50;
+		var yOffset = this.state.touchOffset.y;
+		var xOffset = this.state.touchOffset.x;
+
+		this.setState({
+			touchOffset: {
+				x: 0,
+				y: 0
+			}
+		}, function () {
+			if (yOffset < -THRESHOLD) {
+				this.switchStorie('down');
+			} else if (yOffset > THRESHOLD) {
+				this.switchStorie('up');
+			} else if (xOffset > THRESHOLD) {
+				this.slide('prev');
+			} else if (xOffset < -THRESHOLD) {
+				this.slide('next');
+			}
+		});
 	},
 
 	handleKey: function (e) {
@@ -231,14 +271,18 @@ var StoriesContainer = React.createClass({
 					handleLink         = {this.handleLink}
 					getSlideDirection  = {this.getSlideDirection}
 					getSwitchDirection = {this.getSwitchDirection}
+					translate          = {this.state.touchOffset}
 				/>
 			);
 		}
 
 		return (
 			<section 
-				className = "stories-container" 
-				onWheel   = {this.handleWheel}>
+				className    = "stories-container" 
+				onWheel      = {this.handleWheel}
+				onTouchStart = {this.hanldeTouchStart}
+				onTouchMove  = {this.handleTouchMove}
+				onTouchEnd   = {this.handleTouchEnd}>
 				<ReactTransitionGroup>
 					{StorieElem}
 				</ReactTransitionGroup>
