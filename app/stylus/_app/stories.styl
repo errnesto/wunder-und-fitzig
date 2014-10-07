@@ -2,7 +2,8 @@
 	height           100%
 	position         relative
 	overflow         hidden
-	background-color grey      
+	@media mobile
+		background-color grey      
 
 .invalid
 	transition transform 0.2s
@@ -16,29 +17,34 @@
 	overflow   hidden
 	transition transform 1.2s
 	&.up
-		transform translateY(-200%) !important
+		transform translateY(-100%) !important
+		@media mobile		
+			transform translateY(-200%) !important
 	&.active
 		transform translateY(0%)
 	&.down
-		transform translateY(200%) !important
+		transform translateY(100%) !important
+		@media mobile		
+			transform translateY(200%) !important
 
 	&.invalid-up
 		@extend .invalid
-		transform translateY(100px)
+		transform translateY(100px) !important
 		@media mobile
-			transform translateY(0)
+			transform translateY(0) !important
 
 	&.invalid-down
 		@extend .invalid
-		transform translateY(-100px)
+		transform translateY(-100px) !important
 		@media mobile
-			transform translateY(0)
+			transform translateY(0) !important
 
+	@media all and (max-width: 1000px)
+		transition transform 1s 0.1s
 	@media mobile
 		min-height 0
 		height     60%
 		overflow   visible
-		transition transform 1s 0.1s
 
 	.storie-title
 		font-size   2em
@@ -111,9 +117,9 @@
 
 		&.invalid-left
 			@extend .invalid
-			transform translateX(100px)
+			transform translateX(100px) !important
 			@media mobile
-				transform translateX(0)
+				transform translateX(0) !important
 
 		
 	.cover-image
