@@ -20,7 +20,11 @@ var StoriesContainer = React.createClass({
 			currentItems:  [],
 			recentItems:   [],
 
-			invalid:       false
+			invalid:       false,
+			touchOffset:   {
+				x: 0, 
+				y: 0
+			}
 		};
 	},
 
@@ -38,12 +42,27 @@ var StoriesContainer = React.createClass({
 			.get('/assets/data/stories.json')
 
 			.end(function(res){
+				var stories = res.body;
+				this.shuffle(stories);
+
 				this.setState({
-					stories: res.body,
+					stories: stories,
 				});
 			}.bind(this));
 
 		window.addEventListener('keydown', this.handleKey);
+	},
+
+	// Fisher-Yates shuffle algorithm
+	// from: http://stackoverflow.com/a/12646864/3181404
+	shuffle: function (array) {
+		for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  	}
+  	return array;
 	},
 
 	// event handlers:
@@ -68,6 +87,53 @@ var StoriesContainer = React.createClass({
 			this.slide('prev');
 			this.xScrollOffset = 0;
 		}
+	},
+
+	hanldeTouchStart: function (e) {
+		// e.preventDefault();
+		this.touchStartX = e.touches[0].clientX;
+		this.touchStartY = e.touches[0].clientY;
+	},
+
+	handleTouchMove: function (e) {
+		e.preventDefault();
+		var xOffset = -(this.touchStartX - e.touches[0].clientX);
+		var yOffset = -(this.touchStartY - e.touches[0].clientY);
+
+		if (Math.abs(xOffset) > Math.abs(yOffset)) {
+			this.setState({
+				touchOffset: { x: xOffset }
+			});
+		} else {
+			this.setState({
+				touchOffset: { y: yOffset }
+			});
+		}
+		
+	},
+
+	handleTouchEnd: function (e) {
+		// e.preventDefault();
+		var THRESHOLD = 70;
+		var yOffset = this.state.touchOffset.y;
+		var xOffset = this.state.touchOffset.x;
+
+		this.setState({
+			touchOffset: {
+				x: 0,
+				y: 0
+			}
+		}, function () {
+			if (yOffset < -THRESHOLD) {
+				this.switchStorie('down');
+			} else if (yOffset > THRESHOLD) {
+				this.switchStorie('up');
+			} else if (xOffset > THRESHOLD) {
+				this.slide('prev');
+			} else if (xOffset < -THRESHOLD) {
+				this.slide('next');
+			} 
+		});
 
 	},
 
@@ -216,14 +282,18 @@ var StoriesContainer = React.createClass({
 					handleLink         = {this.handleLink}
 					getSlideDirection  = {this.getSlideDirection}
 					getSwitchDirection = {this.getSwitchDirection}
+					translate          = {this.state.touchOffset}
 				/>
 			);
 		}
 
 		return (
 			<section 
-				className = "stories-container" 
-				onWheel   = {this.handleWheel}>
+				className    = "stories-container" 
+				onWheel      = {this.handleWheel}
+				onTouchStart = {this.hanldeTouchStart}
+				onTouchMove  = {this.handleTouchMove}
+				onTouchEnd   = {this.handleTouchEnd}>
 				<ReactTransitionGroup>
 					{StorieElem}
 				</ReactTransitionGroup>

@@ -1,13 +1,14 @@
 // Load Gulp and your plugins
-var gulp       = require('gulp');
-var plumber    = require('gulp-plumber');
-var nodemon    = require('gulp-nodemon');
-var livereload = require('gulp-livereload');
-var open       = require("gulp-open");
-var stylus     = require('gulp-stylus');
-var nib        = require('nib');
-var browserify = require('browserify');
-var source     = require('vinyl-source-stream');
+var gulp         = require('gulp');
+var plumber      = require('gulp-plumber');
+var nodemon      = require('gulp-nodemon');
+var livereload   = require('gulp-livereload');
+var open         = require("gulp-open");
+var stylus       = require('gulp-stylus');
+var autoprefixer = require('autoprefixer-stylus');
+var nib          = require('nib');
+var browserify   = require('browserify');
+var source       = require('vinyl-source-stream');
 
 var paths = {
 	styles: 'app/stylus/**/*.styl',
@@ -32,7 +33,7 @@ gulp.task('stylus', function () {
     gulp.src('app/stylus/main.styl')
     		.pipe(plumber())
         .pipe(stylus({
-            use: nib(), 
+            use: autoprefixer({browsers: ['Firefox > 5%', 'Explorer 9', 'Chrome > 5%', 'Safari > 5%']}),
             set: ['compress']
         }))
         .pipe(gulp.dest('./assets/css'))

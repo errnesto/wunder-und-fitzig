@@ -48,9 +48,20 @@ var Storie = React.createClass({
 		});
 		var currentItem = this.props.items[this.props.currentItem];
 
+		// styles for touch
+		var style = {
+			'transform':         'translateY(' + this.props.translate.y + 'px)',
+			'-webkit-transform': 'translateY(' + this.props.translate.y + 'px)'
+		}
+		if (this.props.translate.y !== 0) {
+			style.transition = '0s';
+		}
+
 		return (
 			<div 
-				className = {classNames}>
+				className = {classNames}
+				style     = {style}>
+
 				<ReactTransitionGroup>
 					<StorieItem 
 						key               = {this.props.customer+'-'+this.props.currentItem} 
@@ -60,6 +71,7 @@ var Storie = React.createClass({
 						background        = {currentItem.background} 
 						backgroundSize    = {currentItem.backgroundSize}
 						cover             = {currentItem.cover}
+						translateX        = {this.props.translate.x}
 					/>
 				</ReactTransitionGroup>
 

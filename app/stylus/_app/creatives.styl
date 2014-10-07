@@ -1,39 +1,83 @@
 .creatives-page
-	height 100%
+	height     100%
+	width      100%
+	overflow-x hidden
+
+	.inner-content
+		position      relative
+		margin-bottom 60px
+		border-bottom 1px solid wuf-black
+		min-height    100%
+		&:last-child
+			margin-bottom 0
+			border-bottom 0
+			min-height    0
+		@media small-mobile
+			position      relative
+			height        400px
+			margin-bottom 15px
+			padding-top   15px
+			min-height    0
+			
 
 .right-person,
 .left-person,
 .center-person
 	position    absolute
 	height      100% 
-	width:      52% 
+	width:      70% 
 
 	background-repeat no-repeat;
 	margin-top        -(header-height + 10)
+	bottom            0
+	@media mobile
+		background-size 140%
+	@media small-mobile
+		background-size 120%
+		width           55% !important
 
 .right-person
-	background-position left header-height
-	right               0
+	background-position -42px header-height
+	right               -20%
+	@media mobile
+		background-position left mobile-header-height
+		right               0
+	@media small-mobile
+		background-position left bottom
 
 .left-person
 	background-position right header-height
-	left                0
+	left                -20%
+	@media mobile
+		background-position right mobile-header-height
+		left                0
+	@media small-mobile
+		background-position right bottom
 
 .center-person
-	width               100%
-	height              64% 
+	position            relative
+	width               100% !important
+	height              650px 
 	left                0
 	background-position center top
 	margin-top          0
 	padding-top         0
+	@media mobile
+		background-size 100%
+		height          400px
+	@media small-mobile
+		height 250px
 
 .text, 
 .right-text, 
 .center-text
-	width    420px
+	width    50%
 	position relative
 	z-index  2
-	height   100%
+	@media mobile
+		width 48%
+		h2
+			margin-bottom 0
 
 	.paragraphs
 		display  block
@@ -45,4 +89,3 @@
 
 .center-text
 	width: 100%
-	height: 36%

@@ -32,6 +32,8 @@ a:hover
 	height      100%; 
 	position    absolute;
 	padding-top header-height;
+	@media mobile
+		padding-top mobile-header-height;
 
 .App
 	height 100%
@@ -39,7 +41,6 @@ a:hover
 .inner-content
 	margin     0 auto;
 	max-width  page-width;
-	min-height 100%
 	padding    0 40px;
 	@media mobile
 		padding 0 10px 

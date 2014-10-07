@@ -41,21 +41,30 @@ var StorieItem = React.createClass({
 			'active'        : true,
 			'invalid-left'  : this.props.invalid == 'prev'
 		});
+
 		var style      = {
-			'background-image': 'url(/assets/img/stories/'+this.props.background+')'
+			'background-image':  'url(/assets/img/stories/'+this.props.background+')',
+			'transform':         'translateX(' + this.props.translateX + 'px)',
+			'-webkit-transform': 'translateX(' + this.props.translateX + 'px)'
 		};
 		var CoverImg;
 
 		if (this.props.isCover) {
 			style    = {
-				'background':      this.props.background,
-				'background-size': this.props.backgroundSize
+				'background':        this.props.background,
+				'background-size':   this.props.backgroundSize,
+				'transform':         'translateX(' + this.props.translateX + 'px)',
+				'-webkit-transform': 'translateX(' + this.props.translateX + 'px)'
 			};
 			CoverImg = (
 				<img 
 					className = "cover-image" 
 					src       = {'/assets/img/stories/'+this.props.cover} />
 			);
+		}
+
+		if (this.props.translateX !== 0) {
+			style.transition = '0s';
 		}
 
 		return (
