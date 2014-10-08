@@ -35,9 +35,9 @@ var Conatiner = React.createClass({
 
   getTitleString: function () {
     switch (this.state.currentPage) {
-      case '/creatives':
+      case '/creatives/':
         return 'Creatives';
-      case '/stories':
+      case '/stories/':
         return 'Stories';
       default:
         return 'Werbeagentur Berlin';
@@ -74,7 +74,7 @@ var Conatiner = React.createClass({
             <li 
               className = " menu-item">
               <NavLink 
-                href        = "/creatives"
+                href        = "/creatives/"
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
@@ -97,7 +97,7 @@ var Conatiner = React.createClass({
             <li 
               className = " menu-item">
               <NavLink 
-                href        = "/stories"
+                href        = "/stories/"
                 currentPath = {this.state.currentPage} >
                 <img 
                   className = "menu-img" 
