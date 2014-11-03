@@ -11,6 +11,7 @@ if (app.get('env') == 'development') {
 	app.use(require('connect-livereload')());
 }
 
+app.use('/wunderundfitzig.jpg', express.static(__dirname + '/assets/wunderundfitzig.jpg'));
 app.use('/assets', express.static(__dirname + '/assets'));
 
 var renderApp = function (req, res, next) {	
