@@ -120,5 +120,21 @@
 				"text": "Im laufe der Zeit sind dann auch einige Werbeanzeigen und -aktionen für kaributu von uns kreiert worden."
 			}
 		]
+	},
+	{
+		"customer": "Brillenschatz",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "Brillenschatz/brillenschatzLogos.gif",
+				"background": "#DDDDDD",
+				"text": "Gerade in Berlin herscht in der Startup Szene Goldgräber Stimmung.<br>Auch wir haben unsere Schaufeln geschnappt und uns an dem Geschenkeservice kaributu versucht."
+			},
+			{
+				"is_cover": false,
+				"background": "Brillenschatz/website.jpg",
+				"text": "Im laufe der Zeit sind dann auch einige Werbeanzeigen und -aktionen für kaributu von uns kreiert worden."
+			}
+		]
 	}
 ]
