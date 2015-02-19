@@ -1,0 +1,141 @@
+[
+	{
+		"customer": "Sebastian Schmidt",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "SebastianSchmidt/sebastianSchmidtLogo.svg",
+				"background": "#46462A",
+				"text": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln.<br/> <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/Sebastian_logos.jpg",
+				"text": "Grundlage der Gestaltung bietet das Logo. Die Hausfarbe Olivgrün stand als Sebastians Lieblingsfarbe so gut wie fest."
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianPage.jpg",
+				"text": "Der look der Seite ist geprägt von olivgrünem Hintergrund für Photografie und orangenem Hintergrund für Videos die auch zu Sebastians Repertoire gehören. <a target=\"_blank\" href=\"http://www.sebastianschmidt.co\">www.sebastianschmidt.co</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SebastianSchmidt/SebastianGeschaeftsausstattung.jpg",
+				"text": "Nach Abschluss der Arbeiten an der Webseite haben wir uns um die Geschäftsaussttung gekümmert."
+			}
+		]
+
+	},
+	{
+		"customer": "Riptide",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "Riptide/riptide_Logo.svg",
+				"background": "url(/assets/img/stories/Riptide/bg.jpg)",
+				"text": "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite.<br/> <a target=\"_blank\" href=\"http://www.riptide-filmmakers.de/\">www.riptide-filmmakers.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "Riptide/riptidePage.jpg",
+				"text": "Die riptide Seite begrüßt den Besucher direkt mit einem vollbild Film. Auf der Seite kann man dann ansehen was die filmmakers machen: Filme. Inhalte werden dynamisch von Vimeo ausgelesen.<br/> <a target=\"_blank\" href=\"http://www.riptide-filmmakers.de/\">www.riptide-filmmakers.de</a>"
+			}
+		]
+	},
+	{
+		"customer": "Hamburg Golightly",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "HamburgGolightly/Hamburg-Golightly_Logo.svg",
+				"background": "url(/assets/img/stories/HamburgGolightly/bg.jpg)",
+				"backgroundSize": "cover",
+				"text": "Hamburg Golightly stylen und stagen Wohnungen. Wir haben uns für sie eine Gestaltung ausgedacht, die vor allem durch grandiose Bilder besticht.<br/> <a target=\"_blank\" href=\"http://www.hamburg-golightly.de/\">www.hamburg-golightly.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "HamburgGolightly/ipadSchokolade.jpg",
+				"text": "Die Webseite erinnert an eine Wohnzeitschrift.<br/> Neben erklärenden Texten findet man animierte vorher / nacher Bilder.<br/> So schön, dass man reinbeißen möchte: <a target=\"_blank\" href=\"http://www.hamburg-golightly.de/\">www.hamburg-golightly.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "HamburgGolightly/print.jpg",
+				"text": "Natürlich haben wir auch hier verschiedene Printprodukte – in erster Linine eine Geschäftsaussttung – entworfen."
+			}
+		]
+	},
+	{
+		"customer": "Drunken Sailor",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "DrunkenSailor/drunkensailorLogo.svg",
+				"background": "#7D8FA1 url(/assets/img/stories/DrunkenSailor/bg.png)",
+				"text": "Drunken Sailor Arts and Events ist das Produkt von unserem Freund Anatol Berg.<br> Er kam zu uns auf der Suche nach einem Design das in die Berliner Clubszene passt.<br/> <a target=\"_blank\" href=\"http://www.drunkensailor-berlin.com/\">www.drunkensailor-berlin.com</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "DrunkenSailor/drunkensailorBlock.jpg",
+				"text": "Auch hier galt es zuerst ein Logo zu Gestalten. Entstanden ist ein Design, dass zu Anatol und zu dem Namen Drunken Sailor passt. Die charakteristischen Splitter lassen sich vielfältig als Gestaltelemente einsetzen und schöne mädchen können sie sich vor dem Clubbesuch auf die Wangen schminken."
+			},
+			{
+				"is_cover": false,
+				"background": "DrunkenSailor/drunkensailorPage.png",
+				"text": "Grundelement des Drunken Sailor design ist das Event-Plakat. Inzwischen ist daraus eine Webseite entsanden die, die bunten Plakate mit paralaxen Effekten digital in Szene setzt.<br> <a href=\"http://www.drunkensailor-berlin.com\" target=\"_blank\">www.drunkensailor-berlin.com</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "DrunkenSailor/drunkensailorBunt.jpg",
+				"text": "Natürlich ist auch für Drunken Sailor jede Menge Werbe und Anzeigenmaterial geschaffen worden."
+			}
+		]
+	},
+	{
+		"customer": "Kaributu",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "Kaributu/kaributu_Logo.svg",
+				"background": "#848f11",
+				"text": "Gerade in Berlin herscht in der Startup Szene Goldgräber Stimmung.<br>Auch wir haben unsere Schaufeln geschnappt und uns an dem Geschenkeservice kaributu versucht."
+			},
+			{
+				"is_cover": false,
+				"background": "Kaributu/kaributuGeschenkband.jpg",
+				"text": "Für das kaributu Logo haben wir sehr, sehr viele Scribbles angefertigt und sind schließlich fast vor unserem Scanner in Geschenkband erstickt. <br> Das Ergebniss war ein Corporate Design mit skeomorphen einflüssen."
+			},
+			{
+				"is_cover": false,
+				"background": "Kaributu/fragebogen.jpg",
+				"text": "Die Hauptaufgabe bei kaributu war die Gestaltung der Web App. Hier galt es von dem Konzept zur Nutzerführung bis zum kleinsten Bedienelement alles zu designen und technisch umzusetzen."
+			},
+			{
+				"is_cover": false,
+				"background": "Kaributu/kaributuPresentation.jpg",
+				"text": "Neben der Gestaltung der kaributu Applikation haben wir auch einige Interne Dukumente entworfen und umgesetzt."
+			},
+			{
+				"is_cover": false,
+				"background": "Kaributu/kaributuAnzeigen.jpg",
+				"text": "Im laufe der Zeit sind dann auch einige Werbeanzeigen und -aktionen für kaributu von uns kreiert worden."
+			}
+		]
+	},
+	{
+		"customer": "Brillenschatz",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "Brillenschatz/brillenschatzLogos.gif",
+				"background": "#DDDDDD",
+				"text": "Brillenschatz ist ein sehr schöner Laden in Berlin für vintage designer Brillen. <br>
+				Wir haben dafür ein dynamisches Design mit wechselden Brillensilouhetten entwickelt."
+			},
+			{
+				"is_cover": false,
+				"background": "Brillenschatz/website.jpg",
+				"text": "Im laufe der Zeit sind dann auch einige Werbeanzeigen und -aktionen für kaributu von uns kreiert worden."
+			}
+		]
+	}
+]

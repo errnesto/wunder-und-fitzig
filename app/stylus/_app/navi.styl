@@ -1,0 +1,64 @@
+.blackHeader
+	position         fixed
+	top              0
+	left             0
+	background-color wuf-black
+	height           header-height
+	width:           100%
+	z-index          200
+	@media mobile
+		height mobile-header-height
+
+.topNavigation 
+	max-width 660px
+	margin    13px auto 0
+
+	ul
+		margin 0
+		padding 0
+
+	.menu-item
+		list-style none
+		float      left
+		width      33%
+		height     header-height
+		text-align center
+		@media mobile
+			height 37px
+			
+		a
+			display  block
+			color    #fff
+			height   55px
+			position relative
+			&:hover
+				border 0
+			@media mobile
+				height 37px
+
+		.menu-img 
+			vertical-align bottom
+			margin-bottom: -1px
+			@media mobile
+				height 11px
+
+		.menu-logo
+			margin-left -13px
+			@media mobile
+				margin-left -8px
+				height      31px
+
+		.active
+			&:after
+				content        ' '
+				position       absolute
+				margin-left    -12px
+				left           50%
+				bottom         -13px
+				width          0
+				height         0
+				border-left    12px solid transparent
+				border-right   12px solid transparent
+
+				border-top     13px solid wuf-black
+				
