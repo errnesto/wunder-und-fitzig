@@ -34,7 +34,8 @@
     "browserify": "~5.9.1",
     "vinyl-source-stream": "~0.1.1",
     "minifyify": "~4.4.0",
-    "autoprefixer-stylus": "~0.3.0"
+    "autoprefixer-stylus": "~0.3.0",
+    "gulp-rsync": "0.0.5"
   },
   "dependencies": {
     "express": "~4.7.2",

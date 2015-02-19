@@ -31,4 +31,4 @@ app.use(favicon(__dirname + '/assets/favicon.ico'));
 app.use('/assets', express.static(__dirname + '/assets'));
 app.use(renderApp);
 
-app.listen(65432);
+app.listen(process.env.PORT);
