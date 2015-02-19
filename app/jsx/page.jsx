@@ -35,9 +35,9 @@ var Conatiner = React.createClass({
 
   getTitleString: function () {
     switch (this.state.currentPage) {
-      case '/creatives':
+      case '/creatives/':
         return 'Creatives';
-      case '/stories':
+      case '/stories/':
         return 'Stories';
       default:
         return 'Werbeagentur Berlin';

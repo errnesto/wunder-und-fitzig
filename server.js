@@ -7,13 +7,6 @@ var React      = require('react');
 var Page       = require('./app/jsx/page.jsx');
 
 
-if (app.get('env') == 'development') {
-	app.use(require('connect-livereload')());
-}
-
-app.use('/wunderundfitzig.jpg', express.static(__dirname + '/assets/wunderundfitzig.jpg'));
-app.use('/assets', express.static(__dirname + '/assets'));
-
 var renderApp = function (req, res, next) {	
 	var path   = url.parse(req.url).pathname;
 
@@ -29,6 +22,7 @@ var renderApp = function (req, res, next) {
 
 app.use(favicon(__dirname + '/assets/favicon.ico'));
 app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/wunderundfitzig.jpg', express.static(__dirname + '/assets/wunderundfitzig.jpg'));
 app.use(renderApp);
 
 app.listen(process.env.PORT);
