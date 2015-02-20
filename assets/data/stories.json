@@ -153,7 +153,7 @@
 			{
 				"is_cover": true,
 				"cover": "Kupa/empty.png",
-				"background": "url(/assets/img/stories/Kupa/kupa.png)",
+				"background": "url(/assets/img/stories/Kupa/kupa.png) top center",
 				"backgroundSize": "cover",
 				"text": "Kutzke & Papstein sind eine Berliner Hausverwaltung. <a href=\"http://kupa.de\" target=\"_blank\">kupa.de</a>"
 			},
