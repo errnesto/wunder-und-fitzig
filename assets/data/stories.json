@@ -128,13 +128,39 @@
 				"is_cover": true,
 				"cover": "Brillenschatz/brillenschatzLogos.gif",
 				"background": "#DDDDDD",
-				"text": "Brillenschatz ist ein sehr schöner Laden in Berlin für vintage designer Brillen. <br>
-				Wir haben dafür ein dynamisches Design mit wechselden Brillensilouhetten entwickelt."
+				"text": "Brillenschatz ist ein sehr schöner Laden in Berlin für vintage designer Brillen. <br> Wir haben dafür ein dynamisches Design mit wechselden Brillensilouhetten entwickelt. <a href=\"http://brillenschatz.de\" target=\"_blank\">brillenschatz.de</a>"
 			},
 			{
 				"is_cover": false,
 				"background": "Brillenschatz/website.jpg",
-				"text": "Im laufe der Zeit sind dann auch einige Werbeanzeigen und -aktionen für kaributu von uns kreiert worden."
+				"text": "Im Onlinshop kann man Filter nach Kategorien, Marken oder Materialen belibig kombinieren. <br /> <a href=\"http://brillenschatz.de\" target=\"_blank\">brillenschatz.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "Brillenschatz/zertifikat.jpg",
+				"text": "Zu jeder gekauften Brille erhält der Kunde ein unterschriebenes und gestempeltes Zertifikat."
+			},
+			{
+				"is_cover": false,
+				"background": "Brillenschatz/social.jpg",
+				"text": "Mobile und Social dürfen natürlich nicht fehlen :-) <br/> So werden zum Beispiel neue Produkte im Shop automatisch auf facebook geteilt."
+			}
+		]
+	},
+	{
+		"customer": "Kutzke & Papstein",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "Kupa/empty.png",
+				"background": "url(/assets/img/stories/Kupa/kupa.png)",
+				"backgroundSize": "cover",
+				"text": "Kutzke & Papstein sind eine Berliner Hausverwaltung. <a href=\"http://kupa.de\" target=\"_blank\">kupa.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "Kupa/kupaIpad.jpg",
+				"text": "Wir haben hier viele Detailaufnahmen der betreuten Objekte angefertigt. <br/> So sieht die Seite sachlich und doch sehr schön aus. <a href=\"http://kupa.de\" target=\"_blank\">kupa.de</a>"
 			}
 		]
 	}
