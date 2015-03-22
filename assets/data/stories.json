@@ -163,5 +163,21 @@
 				"text": "Wir haben hier viele Detailaufnahmen der betreuten Objekte angefertigt. <br/> So sieht die Seite sachlich und doch sehr schön aus. <a href=\"http://kupa.de\" target=\"_blank\">kupa.de</a>"
 			}
 		]
+	},
+	{
+		"customer": "Café Sandro P.",
+		"items": [
+			{
+				"is_cover": true,
+				"cover": "SandroP/sandroP_logo.png",
+				"background": "url(/assets/img/stories/SandroP/board.jpg)",
+				"text": "Eine Strandbar in Dresden für die wir verschiedene Anzeigen und natürlich auch einen Internetauftritt gestaltet haben. <a href=\"http://cafe-sandrop.de\" target=\"_blank\">cafe-sandrop.de</a>"
+			},
+			{
+				"is_cover": false,
+				"background": "SandroP/sandropWebsite.png",
+				"text": "Auf der Seite finden Sie alles was sie auf einer Webseite brauchen – was Sie nicht brauchen finden Sie auch nicht <a href=\"http://cafe-sandrop.de\" target=\"_blank\">cafe-sandrop.de</a>"
+			}
+		]
 	}
 ]
