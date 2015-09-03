@@ -112,6 +112,9 @@ var NewsPage = React.createClass({
 							<p>
 								Praxiserfahrung sammelte sie dann bei MetaDesign auch in Berlin.
 							</p>
+							<p>
+								Inzwischen studiert sie Gesellschafts- und Wirtschaftskommunikation an der UDK.
+							</p>
 						</span>
 					</div>
 				</div>
