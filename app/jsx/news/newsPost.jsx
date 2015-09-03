@@ -38,9 +38,9 @@ var NewsPost = React.createClass({
 			//get photos from facebook by object id
 			request
 				.get('https://graph.facebook.com/' + this.props.id)
-				.query({ 
-					fields: 'images', 
-					access_token: this.props.accessToken, 
+				.query({
+					fields: 'images',
+					access_token: this.props.accessToken,
 				})
 				.end(function(res){
 					this.setState({
