@@ -32,7 +32,8 @@
 			{
 				"is_cover": true,
 				"cover": "Riptide/riptide_Logo.svg",
-				"background": "url(/assets/img/stories/Riptide/bg.jpg)",
+				"background": "url(/assets/img/stories/Riptide/partySchiff.jpg)",
+				"backgroundSize": "cover",
 				"text": "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite.<br/> <a target=\"_blank\" href=\"http://www.riptide-filmmakers.de/\">www.riptide-filmmakers.de</a>"
 			},
 			{
@@ -152,8 +153,8 @@
 		"items": [
 			{
 				"is_cover": true,
-				"cover": "Kupa/empty.png",
-				"background": "url(/assets/img/stories/Kupa/kupa.png) top center",
+				"cover": "Kupa/logoKupa.png",
+				"background": "url(/assets/img/stories/Kupa/bg.jpg) top center",
 				"backgroundSize": "cover",
 				"text": "Kutzke & Papstein sind eine Berliner Hausverwaltung. <a href=\"http://kupa.de\" target=\"_blank\">kupa.de</a>"
 			},

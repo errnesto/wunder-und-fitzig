@@ -1,28 +1,27 @@
-/**
+ /**
  * @jsx React.DOM
  */
- 'use strict';
+ 'use strict'
 
-var React    = require('react');
+var React    = require('react')
 
-var NewsPage = React.createClass({
+var Creatives = React.createClass({
 
 	render: function() {
 		return (
-			<section
-				className = "creatives-page">
-				<div 
-					className = "inner-content sticker" 
+			<section className = "creatives-page">
+				<div
+					className = "inner-content sticker"
 					id        = "hrWunder">
-					<div 
-						className = "right-person" 
+					<div
+						className = "right-person"
 						style     = {{backgroundImage: 'url(/assets/img/people/hrWunder.jpg)'}} />
-					<div 
+					<div
 						className = "text">
 						<h2>
 							Herr Wunder
 						</h2>
-						<span 
+						<span
 							className = "paragraphs">
 							<p>
 								Herr Wunder konzeptioniert und programmiert
@@ -37,18 +36,18 @@ var NewsPage = React.createClass({
 					</div>
 				</div>
 
-				<div 
-					className = "inner-content sticker" 
+				<div
+					className = "inner-content sticker"
 					id        = "frFitzig">
-					<div 
-						className = "left-person" 
+					<div
+						className = "left-person"
 						style     = {{backgroundImage: 'url(/assets/img/people/frFitzig.jpg)', left: '-10%'}} />
-					<div 
+					<div
 						className = "right-text">
 						<h2>
 							Frau Fitzig
 						</h2>
-						<span 
+						<span
 							className = "paragraphs">
 							<p>
 								Formen, Farbe, Strategien!
@@ -63,18 +62,18 @@ var NewsPage = React.createClass({
 					</div>
 				</div>
 
-				<div 
-					className = "inner-content sticker" 
+				<div
+					className = "inner-content sticker"
 					id        = "hrReich">
-					<div 
-						className = "right-person" 
+					<div
+						className = "right-person"
 						style     = {{backgroundImage: 'url(/assets/img/people/hrReich.jpg)'}} />
-					<div 
+					<div
 						className = "text">
 						<h2>
 							Herr Reich
 						</h2>
-						<span 
+						<span
 							className = "paragraphs">
 							<p>
 								Seit 2011 studiert Herr Reich internationale Medieninformatik in Berlin.
@@ -89,66 +88,63 @@ var NewsPage = React.createClass({
 					</div>
 				</div>
 
-				<div 
-					className = "inner-content sticker" 
+				<div
+					className = "inner-content sticker"
 					id        = "frSpringmann">
-					<div 
-						className = "left-person" 
+					<div
+						className = "left-person"
 						style     = {{backgroundImage: 'url(/assets/img/people/frSpringmann.jpg)'}} />
-					<div 
+					<div
 						className = "right-text">
 						<h2>
 							Frau Springmann
 						</h2>
-						<span 
+						<span
 							className = "paragraphs">
 							<p>
-								Frau Springmann entstammt nicht nur einer Künstlerfamilie, sie ist seit 2010 auch staatlich geprüfte Grafikdesignerin. 
+								Frau Springmann entstammt nicht nur einer Künstlerfamilie, sie ist seit 2010 auch staatlich geprüfte Grafikdesignerin.
 							</p>
 							<p>
 								Design allein war ihr aber nicht genug darum studierte sie,
 								nach einem Praktikum bei Schürmann PR, Wirtschfaskomikation in Berlin
 							</p>
 							<p>
-								Praxiserfahrung sammelte sie dann bei MetaDesign auch in Berlin.
+								Praxiserfahrung sammelte sie dann bei MetaDesign in Berlin.
 							</p>
 							<p>
-								Inzwischen studiert sie Gesellschafts- und Wirtschaftskommunikation an der UDK.
+								Inzwischen studiert sie Gesellschafts- und Wirtschaftskommunikation an der Universität der Künste Berlin.
 							</p>
 						</span>
 					</div>
 				</div>
 
-				<div 
-					className = "inner-content sticker" 
+				<div
+					className = "inner-content sticker"
 					id        = "MartinaManuel">
-					<div 
+					<div
 						className = "center-text">
 						<h2>
 							Martina &amp; Manuel
 						</h2>
-						<span 
+						<span
 							className = "paragraphs">
 							<p>
 								Wenn sie gerade mal nicht von einem Termin zum nächsten hetzt, sitzt Martina in der heimischen Küche und träumt von Luftschlössern oder Meister Proper.
 							</p>
 							<p>
-								Manuel genießt sein Lotterleben in Berlin. Lange Reden über sinnvolle und sinnfreie Dinge gehören zu seinen absoluten Lieblingsbeschäftigungen.<br/> 
+								Manuel genießt sein Lotterleben in Berlin. Lange Reden über sinnvolle und sinnfreie Dinge gehören zu seinen absoluten Lieblingsbeschäftigungen.<br/>
 								Ab und zu kann man ihn in einem Hipster Cafe antreffen. Hier bestellt er seine Inspiration.
-							</p>
-							<p>
-								Beide leben mehr oder weniger friedlich zusammen in Kreuzberg.
 							</p>
 						</span>
 					</div>
-					<div 
-						className = "center-person" 
+					<div
+						className = "center-person"
 						style     = {{backgroundImage: 'url(/assets/img/people/manuMartina.jpg)'}} />
 				</div>
 
 			</section>
-		);
+		)
 	}
-});
+})
 
-module.exports = NewsPage;
+module.exports = Creatives
